@@ -88,7 +88,8 @@ card["blocks"]["product_card_gallery"]["settings"]["border_radius"] = 4
 card["blocks"]["product_title"]["settings"].update({"type_preset":"custom","font":"var(--font-subheading--family)","font_size":"1rem","padding-block-start":8})
 card["blocks"]["bajada"] = text("<p>{{ closest.product.metafields.custom.bajada.value }}</p>", preset="custom", size="0.875rem", color=MUTED, line="normal")
 card["blocks"]["price"]["settings"].update({"type_preset":"paragraph","padding-block-start":4})
-card["block_order"] = ["product_card_gallery", "product_title", "bajada", "price"]
+card["blocks"]["ahorro"] = AHORRO_CARD
+card["block_order"] = ["product_card_gallery", "product_title", "bajada", "price", "ahorro"]
 pl["settings"].update({"columns_gap":20,"rows_gap":36,"gap":36,"background_color":"","padding-block-start":88,"padding-block-end":80})
 sections["kits"] = pl
 
@@ -105,23 +106,51 @@ sections["problema"] = section([
   ], gap=14, valign_col="center")),
 ], direction="row", gap=64, pad=(80,80), valign="center")
 
-# 6. GARANTÍAS — confianza para comprar, sin repetir lo anterior
-def trust(ic, title, line):
+# 6. LA GUÍA — lo que recibes además del producto
+def guide_row(n, title, line):
     return group([
-        ("i", icon(ic, width=24, color=INK)),
-        ("t", text(f"<h3>{title}</h3>", preset="h5")),
-        ("d", text(f"<p>{line}</p>", preset="custom", size="0.875rem", color=MUTED, line="loose")),
-    ], gap=8)
+        ("n", text(f"<p>{n}</p>", preset="custom", font="var(--font-accent--family)", size="0.75rem", color=ACCENT_LIGHT)),
+        ("b", group([
+            ("t", text(f"<h3>{title}</h3>", preset="h5", color=PAPER)),
+            ("d", text(f"<p>{line}</p>", preset="custom", size="0.875rem", color="#A9A59C", line="normal")),
+        ], gap=2)),
+    ], direction="row", gap=16, mobile_vertical=False, valign="flex-start", bg="#1F1D1A", radius=6, pad=(16,16,18,18), width="fill")
 
-sections["garantias"] = section([
-  ("row", group([
-     ("t1", trust("truck", "Envíos a todo Chile", "Despachamos a regiones con seguimiento.")),
-     ("t2", trust("return", "Cambio si no calza", "Si el producto no coincide con tu diagnóstico, lo cambias o lo devuelves.")),
-     ("t3", trust("chat_bubble", "¿Dudas antes de comprar?", "Escríbenos y te ayudamos a elegir.")),
-  ], direction="row", gap=40, valign="flex-start")),
-  ("link", button("Contactar a EJE", "/pages/contact", style="button-unstyled", link_color=ACCENT)),
-], gap=24, pad=(56,56), bg="", align_col="flex-start")
-sections["garantias"]["settings"].update({"border":"solid","border_color":LINE,"border_width":1,"border_opacity":100})
+sections["guia"] = section([
+  ("intro", group([
+     ("k", kicker("Incluido en cada compra", color=ACCENT_LIGHT)),
+     ("h", text("<h2>No te llega solo un producto. Te llega cómo usarlo.</h2>", preset="h2", color=PAPER, wrap="balance")),
+     ("s", text("<p>Cada producto EJE trae su guía de uso. Sin adivinar, sin buscar tutoriales.</p>", preset="custom", size="1.125rem", color="#CFCBC2", line="loose", max_width="narrow")),
+     ("c", button("Encontrar mi producto", "/pages/diagnostico")),
+  ], gap=16)),
+  ("list", group([
+     ("g1", guide_row("01", "Cómo usarlo", "Paso a paso, desde el primer día.")),
+     ("g2", guide_row("02", "Cuándo", "En qué momento de tu jornada o de tu entrenamiento.")),
+     ("g3", guide_row("03", "Dónde", "En qué zona del cuerpo o de tu escritorio.")),
+     ("g4", guide_row("04", "Cuánto tiempo", "Duración y frecuencia recomendadas.")),
+     ("g5", guide_row("05", "Cómo ajustarlo", "Para que se adapte a tu cuerpo y a tu espacio.")),
+  ], gap=8)),
+], direction="row", gap=64, bg=DARK, pad=(88,88), valign="center")
+
+# 7. COMPARACIÓN — por qué comprar aquí y no en otro lado
+def compare_card(title, lines, highlight):
+    mark = "✓" if highlight else "—"
+    rows = [(f"l{i}", text(f"<p><strong style=\"color:{ACCENT if highlight else '#8A867C'}\">{mark}</strong>&nbsp;&nbsp;{l}</p>",
+                             preset="custom", size="1rem", line="normal", color=INK if highlight else MUTED)) for i, l in enumerate(lines)]
+    return group([("t", text(f"<h3>{title}</h3>", preset="h4", color=INK if highlight else MUTED))] + rows,
+                 gap=14, bg=CARD if highlight else "", border="solid", border_color=ACCENT if highlight else LINE, radius=6, pad=(28,28,28,28), height="fill")
+
+sections["comparacion"] = section([
+  ("head", group([
+     ("k", kicker("Por qué EJE")),
+     ("h", text("<h2>La diferencia está en lo que pasa antes y después de comprar.</h2>", preset="h2", wrap="balance")),
+  ], gap=10)),
+  ("cols", group([
+     ("a", compare_card("Comprar a ciegas", ["Eliges por foto o por intuición.", "Recibes solo el producto.", "Aprendes a usarlo probando.", "Si no te sirve, pierdes la compra."], False)),
+     ("b", compare_card("Comprar en EJE", ["Un diagnóstico te dice qué necesitas.", "Recibes el producto y su guía de uso.", "Sabes cómo, cuándo y dónde usarlo.", "Si no coincide con tu diagnóstico, lo cambias."], True)),
+  ], direction="row", gap=16, valign="flex-start")),
+  ("foot", text("<p>Envíos a todo Chile con seguimiento · <a href=\"/pages/contact\">¿Dudas? Escríbenos</a></p>", preset="custom", size="0.875rem", color=MUTED)),
+], gap=32, pad=(88,72))
 
 # 7. CIERRE — un solo CTA
 sections["cierre"] = section([
@@ -130,6 +159,6 @@ sections["cierre"] = section([
   ("c", button("Hacer diagnóstico gratis", "/pages/diagnostico")),
 ], gap=16, bg=DARK, pad=(88,88), align_col="center")
 
-order = ["hero","categorias","como_funciona","kits","problema","garantias","cierre"]
+order = ["hero","categorias","como_funciona","kits","guia","problema","comparacion","cierre"]
 dump_pruned({"sections": sections, "order": order}, 'templates/index.json')
 print("ok")

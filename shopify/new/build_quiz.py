@@ -105,6 +105,38 @@ L = L.replace('''  .eje-quiz {
     padding: 72px 20px 88px;''')
 L = L.replace('''    font-size: clamp(28px, 5vw, 42px);''', '''    font-size: clamp(30px, 5vw, 44px);
     text-wrap: balance;''')
+for h in ['postura','lumbar','kit','compresion','rodillo']:
+    old = "url: {% if product_" + h + ".url != blank %}"
+    assert old in L, h
+    L = L.replace(old, "variant: {{ product_" + h + ".selected_or_first_available_variant.id | json }},\n        " + old)
+old = """        <a class="eje-quiz__btn eje-quiz__btn--primary" data-result-product-link href="#">Ver producto recomendado</a>"""
+new = """        <p class="eje-quiz__includes">Incluye guía de uso: cómo, cuándo y dónde usarlo.</p>
+        <div class="eje-quiz__result-ctas">
+          <a class="eje-quiz__btn eje-quiz__btn--primary" data-result-add href="#">Agregar al carrito</a>
+          <a class="eje-quiz__btn eje-quiz__btn--ghost" data-result-product-link href="#">Ver detalle</a>
+        </div>"""
+assert old in L; L = L.replace(old, new)
+old = """        root.querySelector("[data-result-product-link]").href = product.url;"""
+new = old + """
+        var add = root.querySelector("[data-result-add]");
+        add.hidden = !product.variant;
+        if (product.variant) add.href = "/cart/add?id=" + product.variant + "&quantity=1";"""
+assert old in L; L = L.replace(old, new)
+old = """  .eje-quiz [hidden] {"""
+new = """  .eje-quiz__includes {
+    font-size: 0.85rem;
+    color: #57554c;
+    margin: 0 0 14px;
+  }
+
+  .eje-quiz__result-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .eje-quiz [hidden] {"""
+assert old in L; L = L.replace(old, new)
 blk['custom_liquid'] = L
 dump(q, 'templates/page.diagnostico.json')
 print('ok', len(L))

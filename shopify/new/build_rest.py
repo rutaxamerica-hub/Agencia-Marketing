@@ -13,7 +13,10 @@ card['blocks']['card-gallery']['settings'].update({"image_ratio":"square","borde
 card['blocks']['product_title_4nY4eT']['settings'].update({"type_preset":"custom","font":"var(--font-subheading--family)","padding-block-start":8})
 card['blocks']['bajada'] = text("<p>{{ closest.product.metafields.custom.bajada.value }}</p>", preset="custom", size="0.875rem", color=MUTED)
 card['blocks']['price_EzJzMm']['settings'].update({"type_preset":"paragraph","padding-block-start":4})
-card['block_order'] = ["card-gallery","product_title_4nY4eT","bajada","price_EzJzMm"]
+card['blocks']['ahorro'] = AHORRO_CARD
+card['block_order'] = ["card-gallery","product_title_4nY4eT","bajada","price_EzJzMm","ahorro"]
+h['blocks']['guia'] = text("<p>Todos los productos incluyen guía de uso: cómo, cuándo y dónde usarlos.</p>", preset="custom", font="var(--font-accent--family)", size="0.75rem", color=ACCENT, case="uppercase", spacing="loose", pad=(6,0,0,0))
+h['block_order'] = ["text_tqQTNE","text_twGGkJ","guia"]
 mc['settings'].update({"columns_gap_horizontal":20,"columns_gap_vertical":36,"padding-block-end":72})
 dump_pruned(c, 'templates/collection.json')
 
@@ -30,7 +33,8 @@ bo = pc['block_order']
 pc['blocks'][bo[0]]['settings'].update({"image_ratio":"square","border_radius":4})
 pc['blocks'][bo[1]]['settings'].update({"type_preset":"custom","font":"var(--font-subheading--family)","padding-block-start":8})
 pc['blocks']['bajada'] = text("<p>{{ closest.product.metafields.custom.bajada.value }}</p>", preset="custom", size="0.875rem", color=MUTED)
-pc['block_order'] = [bo[0], bo[1], 'bajada', bo[2]]
+pc['blocks']['ahorro'] = AHORRO_CARD
+pc['block_order'] = [bo[0], bo[1], 'bajada', bo[2], 'ahorro']
 pl['settings'].update({"collection":"kits","columns_gap":20,"rows_gap":32,"padding-block-start":64,"padding-block-end":72})
 dump_pruned(k, 'templates/cart.json')
 
@@ -38,6 +42,13 @@ dump_pruned(k, 'templates/cart.json')
 hg = load('../original/sections/header-group.json')
 ann = hg['sections']['header_announcements_9jGBFp']['blocks']['announcement_BxgCk9']['settings']
 ann.update({"text":"Diagnóstico gratis en 2 minutos · Envíos a todo Chile","link":"/pages/diagnostico","font":"var(--font-accent--family)","case":"uppercase","letter_spacing":"loose","font_size":"0.625rem"})
+import copy as _c
+annsec = hg['sections']['header_announcements_9jGBFp']
+a2 = _c.deepcopy(annsec['blocks']['announcement_BxgCk9'])
+a2['settings'].update({"text":"Cada producto incluye su guía de uso","link":"/pages/sobre-nosotros"})
+annsec['blocks']['announcement_guia'] = a2
+annsec['block_order'] = ['announcement_BxgCk9','announcement_guia']
+annsec['settings']['speed'] = 6
 hs = hg['sections']['header_section']['settings']
 hs.update({"show_country":False,"show_language":False})
 dump(hg, 'sections/header-group.json')
@@ -49,7 +60,8 @@ gb = f['blocks']['group_H6VpwJ']['blocks']
 gb['text_LWt8Pz']['settings'].update({"text":"<h2>Consejos de postura y recuperación</h2>","font":"var(--font-heading--family)"})
 gb['text_f9CFLH']['settings'].update({"text":"<p>Guías cortas y novedades de EJE. Sin spam.</p>","type_preset":"custom","text_color":MUTED,"font_size":"0.875rem"})
 f['blocks']['footer_menu'] = {"type":"menu","settings":{"menu":"footer","heading":"","menu_spacing":10,"show_as_accordion":False,"accordion_icon":"caret","accordion_dividers":False,"background_color":"","text_color":"","heading_preset":"h5","link_preset":"paragraph","padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}}
-f['block_order'] = ['group_H6VpwJ','email_signup_crihX7','footer_menu','text_address']
+f['blocks']['pagos'] = payment_icons()
+f['block_order'] = ['group_H6VpwJ','email_signup_crihX7','footer_menu','pagos','text_address']
 f['settings'].update({"gap":24,"padding-block-start":64,"padding-block-end":32})
 sl = fg['sections']['footer_utilities_jLGE8U']['blocks']['social_links_Ew63Kq']['settings']
 for key in ('instagram_url','youtube_url','tiktok_url'): sl[key] = ""   # eran links genéricos (instagram.com, etc.)

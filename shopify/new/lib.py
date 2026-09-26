@@ -90,3 +90,18 @@ def dump_pruned(d, f):
     d = copy.deepcopy(d)
     for s in d["sections"].values(): prune(s)
     dump(d, f)
+
+def liquid(code):
+    return {"type":"custom-liquid","settings":{"custom_liquid":code},"blocks":{}}
+
+_KIT_CALC = ("{%- assign kp = closest.product | default: product -%}"
+             "{%- assign k_items = kp.metafields.custom.incluye.value -%}"
+             "{%- if k_items -%}{%- assign k_total = 0 -%}"
+             "{%- for k_p in k_items -%}{%- assign k_total = k_total | plus: k_p.price -%}{%- endfor -%}"
+             "{%- assign k_save = k_total | minus: kp.price -%}")
+# Ahorro real del kit, calculado con los precios actuales de sus piezas (solo aparece si existe ahorro)
+AHORRO_CARD = liquid(_KIT_CALC + "{%- if k_save > 0 -%}<p style=\"margin:2px 0 0;font-size:0.8125rem;font-weight:600;color:#B6462B\">Ahorras {{ k_save | money }} vs. por separado</p>{%- endif -%}{%- endif -%}")
+AHORRO_PDP = liquid(_KIT_CALC + "{%- if k_save > 0 -%}<p style=\"margin:4px 0 0;display:inline-block;padding:6px 10px;border-radius:4px;background:rgba(182,70,43,.08);color:#B6462B;font-size:0.875rem;font-weight:600\">Ahorras {{ k_save | money }} <span style=\"font-weight:400;color:#57554C\">· por separado: <s>{{ k_total | money }}</s></span></p>{%- endif -%}{%- endif -%}")
+
+def payment_icons(align="flex-start"):
+    return {"type":"payment-icons","settings":{"horizontal_alignment":align,"gap":8,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}}
