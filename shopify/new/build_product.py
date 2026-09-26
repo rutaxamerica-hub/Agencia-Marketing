@@ -3,7 +3,7 @@ p = load('../original/templates/product.json')
 m = p['sections']['main']
 # quitar bloque "Disclosures" vacío (sin metacampos no muestra nada)
 m['blocks'].pop('disclosures_g9mWze', None); m['block_order'] = []
-m['settings']['gap'] = 56
+m['settings']['gap'] = 48
 pd = m['blocks']['product-details']
 pd['settings']['gap'] = 24
 g = pd['blocks']['group_icgrde']
