@@ -22,7 +22,7 @@ def row(key, heading, html, ic):
     return (key, {"type":"_accordion-row","settings":{"heading":heading,"open_by_default":False,"icon":ic,"width":20},
                   "blocks":{"t": text(html, preset="rte")},"block_order":["t"]})
 acc_blocks = dict([
-  row("envios", "Envíos", "<p>Despachamos a todo Chile con seguimiento. En Santiago también puedes retirar tu pedido.</p>", "truck"),
+  row("envios", "Envíos", "<p>Despachamos a todo Chile con seguimiento.</p>", "truck"),
   row("cambios", "Cambios y devoluciones", "<p>Si el producto no coincide con lo que recomendó tu diagnóstico, lo cambias o lo devuelves.</p>", "return"),
   row("guia", "Guía de uso", "<p>Cada compra incluye una guía digital: cómo usar tu producto, para qué sirve cada ajuste y cómo aprovecharlo.</p>", "clipboard"),
   row("dudas", "¿No sabes si es para ti?", "<p>Haz el <a href=\"/pages/diagnostico\">diagnóstico gratis</a> (2 minutos) o <a href=\"/pages/contact\">escríbenos</a>.</p>", "question_mark"),

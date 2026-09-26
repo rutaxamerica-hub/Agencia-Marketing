@@ -115,7 +115,7 @@ def trust(ic, title, line):
 
 sections["garantias"] = section([
   ("row", group([
-     ("t1", trust("truck", "Envíos a todo Chile", "Despacho con seguimiento. Retiro disponible en Santiago.")),
+     ("t1", trust("truck", "Envíos a todo Chile", "Despachamos a regiones con seguimiento.")),
      ("t2", trust("return", "Cambio si no calza", "Si el producto no coincide con tu diagnóstico, lo cambias o lo devuelves.")),
      ("t3", trust("chat_bubble", "¿Dudas antes de comprar?", "Escríbenos y te ayudamos a elegir.")),
   ], direction="row", gap=40, valign="flex-start")),
