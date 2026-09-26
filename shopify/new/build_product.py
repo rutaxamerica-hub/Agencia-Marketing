@@ -35,7 +35,7 @@ pd['blocks']['info'] = {"type":"accordion","settings":{"icon":"plus","dividers":
     "background_color":"","text_color":"","border":"none","border_width":1,"border_opacity":100,"border_color":"","border_radius":0,
     "padding-block-start":8,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},
     "blocks":acc_blocks,"block_order":list(acc_blocks.keys())}
-pd['block_order'] = ['group_icgrde', 'divider_VJhene', 'variant_picker_R3rGDr', 'buy_buttons_eYQEYi', 'recibes', 'text_aEtTtq', 'info']
+pd['block_order'] = ['group_icgrde', 'divider_VJhene', 'variant_picker_R3rGDr', 'buy_buttons_eYQEYi', 'recibes', 'trust', 'text_aEtTtq', 'info']
 # recomendaciones
 r = p['sections']['product_recommendations_qggXJq']
 r['blocks']['text_cbcgyb']['settings'].update({"text":"<h2>Combínalo con</h2>","type_preset":"h3","font":"var(--font-heading--family)"})
