@@ -135,7 +135,7 @@ sections["guia"] = section([
 # 7. COMPARACIÓN — por qué comprar aquí y no en otro lado
 def compare_card(title, lines, highlight):
     mark = "✓" if highlight else "—"
-    rows = [(f"l{i}", text(f"<p><strong style=\"color:{ACCENT if highlight else '#8A867C'}\">{mark}</strong>&nbsp;&nbsp;{l}</p>",
+    rows = [(f"l{i}", text(f"<p><strong>{mark}</strong>  {l}</p>",
                              preset="custom", size="1rem", line="normal", color=INK if highlight else MUTED)) for i, l in enumerate(lines)]
     return group([("t", text(f"<h3>{title}</h3>", preset="h4", color=INK if highlight else MUTED))] + rows,
                  gap=14, bg=CARD if highlight else "", border="solid", border_color=ACCENT if highlight else LINE, radius=6, pad=(28,28,28,28), height="fill")
