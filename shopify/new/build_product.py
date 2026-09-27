@@ -4,6 +4,22 @@ m = p['sections']['main']
 # quitar bloque "Disclosures" vacío (sin metacampos no muestra nada)
 m['blocks'].pop('disclosures_g9mWze', None); m['block_order'] = []
 m['settings']['gap'] = 48
+# Galería: una imagen a la vez (carrusel) en vez de grid con todas visibles.
+# Antes se veían todas las fotos apiladas de una vez (media_presentation "grid"),
+# lo que da un aire de ficha de dropshipping. Con "carousel" se navega imagen por
+# imagen, con miniaturas clicables para saltar a una foto específica.
+mg = m['blocks']['media-gallery']['settings']
+for _k in ('media_columns', 'image_gap', 'large_first_image'):
+    mg.pop(_k, None)
+mg.update({
+    "media_presentation": "carousel",
+    "slideshow_controls_style": "thumbnails",
+    "slideshow_mobile_controls_style": "dots",
+    "thumbnail_position": "left",
+    "thumbnail_width": 64,
+    "thumbnail_radius": 4,
+    "media_radius": 6,
+})
 pd = m['blocks']['product-details']
 pd['settings']['gap'] = 24
 g = pd['blocks']['group_icgrde']
