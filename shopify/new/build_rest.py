@@ -59,6 +59,7 @@ gb['text_LWt8Pz']['settings'].update({"text":"<h2>Consejos de postura y recupera
 gb['text_f9CFLH']['settings'].update({"text":"<p>Guías cortas y novedades de EJE. Sin spam.</p>","type_preset":"custom","text_color":MUTED,"font_size":"0.875rem"})
 f['blocks']['footer_menu'] = {"type":"menu","settings":{"menu":"footer","heading":"","menu_spacing":10,"show_as_accordion":False,"accordion_icon":"caret","accordion_dividers":False,"background_color":"","text_color":"","heading_preset":"h5","link_preset":"paragraph","padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}}
 f['blocks']['pagos'] = payment_icons()
+f['blocks']['text_address']['settings']['text'] = "<p>EJE — 2 Norte 1135, Talca, Chile</p>"
 f['block_order'] = ['group_H6VpwJ','email_signup_crihX7','footer_menu','pagos','text_address']
 f['settings'].update({"gap":24,"padding-block-start":64,"padding-block-end":32})
 sl = fg['sections']['footer_utilities_jLGE8U']['blocks']['social_links_Ew63Kq']['settings']
