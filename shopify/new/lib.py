@@ -42,7 +42,7 @@ def text(html, preset="rte", align="left", color="", width="100%", max_width="no
         "background_color":"#00000026","corner_radius":0,"padding-block-start":pad[0],"padding-block-end":pad[1],
         "padding-inline-start":pad[2],"padding-inline-end":pad[3]},"blocks":{}}
 
-def kicker(t, color=ACCENT, align="left"):
+def kicker(t, color=MUTED, align="left"):
     return text(f"<p>{t}</p>", preset="custom", align=align, color=color, font="var(--font-accent--family)", size="0.75rem", case="uppercase", spacing="loose")
 
 def button(label, link, style="button", bg="", fg="", border="", width="fit-content", width_mobile="fit-content", link_color=""):

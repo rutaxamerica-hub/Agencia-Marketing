@@ -13,7 +13,7 @@ sections = {}
 # 1. HERO — una idea: qué es EJE + qué lo diferencia + siguiente paso
 sections["hero"] = section([
   ("hero_text", group([
-     ("kicker", kicker("Ergonomía y recuperación", color=ACCENT_LIGHT)),
+     ("kicker", kicker("Ergonomía y recuperación", color="#A9A59C")),
      ("title", text("<h1>Primero entendemos qué te duele. Después, te decimos qué usar.</h1>", preset="h1", color=PAPER, wrap="balance")),
      ("sub", text("<p>Productos para tu escritorio y para después de entrenar, elegidos según un diagnóstico de 2 minutos. Cada uno con su guía de uso.</p>",
                   preset="custom", size="1.125rem", line="loose", color="#CFCBC2", max_width="narrow")),
@@ -32,7 +32,7 @@ def cat_card(img, title, line, cta, url):
         ("body", group([
             ("t", text(f"<h3>{title}</h3>", preset="h4")),
             ("d", text(f"<p>{line}</p>", preset="custom", size="0.875rem", color=MUTED, line="loose")),
-            ("c", button(cta, url, style="button-unstyled", link_color=ACCENT)),
+            ("c", button(cta, url, style="button-unstyled", link_color=MUTED)),
         ], gap=6, pad=(4,4,4,4))),
     ], gap=16, link=url)
 
@@ -51,7 +51,7 @@ sections["categorias"] = section([
 # 3. CÓMO FUNCIONA — la propuesta de valor en 3 pasos
 def step(n, title, line):
     return group([
-        ("n", text(f"<p>{n}</p>", preset="custom", font="var(--font-accent--family)", size="0.875rem", color=ACCENT)),
+        ("n", text(f"<p>{n}</p>", preset="custom", font="var(--font-accent--family)", size="0.875rem", color=MUTED)),
         ("t", text(f"<h3>{title}</h3>", preset="h4")),
         ("d", text(f"<p>{line}</p>", preset="custom", size="0.9375rem" if False else "1rem", color=MUTED, line="loose")),
     ], gap=10, bg=CARD, border="solid", border_color=LINE, radius=6, pad=(28,28,28,28), height="fill")
@@ -76,7 +76,7 @@ hdr = pl["blocks"]["static-header"]
 hdr["settings"]["align_baseline"] = False
 hdr["blocks"] = {
   "product_list_text_heading": text("<h2>Empieza por un kit</h2>", preset="h2", width="100%"),
-  "product_list_button": button("Ver todos los kits", "/collections/kits", style="button-unstyled", link_color=ACCENT),
+  "product_list_button": button("Ver todos los kits", "/collections/kits", style="button-unstyled", link_color=MUTED),
 }
 hdr["blocks"]["product_list_text_heading"]["settings"]["width"] = "fit-content"
 hdr["block_order"] = ["product_list_text_heading", "product_list_button"]
@@ -96,10 +96,10 @@ sections["problema"] = section([
   ("media", group([("img", image(IMG_AUTH, ratio="portrait", radius=6))])),
   ("body", group([
      ("k", kicker("El problema")),
-     ("stat", text("<h2>7 de cada 10</h2>", preset="custom", font="var(--font-heading--family)", size="4.5rem", color=ACCENT, line="tight")),
+     ("stat", text("<h2>7 de cada 10</h2>", preset="custom", font="var(--font-heading--family)", size="4.5rem", color=INK, line="tight")),
      ("stat_l", text("<p>personas que trabajan desde casa en Chile tienen molestias musculares.</p>", preset="custom", size="1.25rem", line="normal", max_width="narrow")),
      ("sp", text("<p>La mayoría ya probó algo. Lo que falla no es el esfuerzo: es comprar sin diagnóstico y usar sin guía.</p>", preset="custom", size="1rem", color=MUTED, line="loose", max_width="narrow", pad=(8,0,0,0))),
-     ("link", button("Por qué pasa esto →", "/pages/el-problema", style="button-unstyled", link_color=ACCENT)),
+     ("link", button("Por qué pasa esto →", "/pages/el-problema", style="button-unstyled", link_color=MUTED)),
      ("src", text("<p>Fuente: Revista Emprende e Infogate, 2025.</p>", preset="custom", size="0.75rem", color="#8A867C")),
   ], gap=14, valign_col="center")),
 ], direction="row", gap=64, pad=(80,80), valign="center")
@@ -117,7 +117,7 @@ def guide_row(n, title, line):
 
 sections["guia"] = section([
   ("intro", group([
-     ("k", kicker("Incluido en cada compra", color=ACCENT_LIGHT)),
+     ("k", kicker("Incluido en cada compra", color="#A9A59C")),
      ("h", text("<h2>No te llega solo un producto. Te llega cómo usarlo.</h2>", preset="h2", color=PAPER, wrap="balance")),
      ("s", text("<p>Cada producto EJE trae su guía de uso. Sin adivinar, sin buscar tutoriales.</p>", preset="custom", size="1.125rem", color="#CFCBC2", line="loose", max_width="narrow")),
   ], gap=16)),
