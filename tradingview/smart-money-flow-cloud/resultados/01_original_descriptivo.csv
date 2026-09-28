@@ -1,0 +1,6 @@
+group,mult_med,mult_p95,mult_max,corr_nube_pendiente,velas_por_cambio
+acciones 1d,1.0604,1.4779,1.9289,0.6562,34.6715
+acciones 1h,1.0739,1.4762,1.8937,0.7224,36.2545
+cripto 1d,1.0259,1.4219,1.8268,1.0000,45.6483
+cripto 1h,1.0441,1.4111,1.9596,0.9998,40.3805
+cripto 4h,1.0422,1.4009,1.9190,0.9999,41.3752

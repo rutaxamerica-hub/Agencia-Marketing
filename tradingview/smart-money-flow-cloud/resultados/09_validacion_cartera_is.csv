@@ -1,0 +1,29 @@
+cfg,group,cagr,max_dd,sharpe,total
+"A original (SAR, banda adaptativa)",cripto 1h,0.6419,-0.4212,1.0345,7.6010
+"A original (SAR, banda adaptativa)",cripto 4h,1.0916,-0.4079,1.4565,21.7713
+"A original (SAR, banda adaptativa)",cripto 1d,1.6437,-0.4194,1.7640,30.5714
+"A original (SAR, banda adaptativa)",acciones 1d,0.0162,-0.5651,0.1825,1.2990
+B banda fija 1.2,cripto 1h,0.7943,-0.4232,1.1591,11.6403
+B banda fija 1.2,cripto 4h,1.0850,-0.4574,1.4437,21.4665
+B banda fija 1.2,cripto 1d,1.6161,-0.4036,1.7453,29.4131
+B banda fija 1.2,acciones 1d,0.0211,-0.5464,0.2148,1.9508
+C + filtro compresion,cripto 1h,1.1912,-0.2733,1.7047,29.0886
+C + filtro compresion,cripto 4h,0.8041,-0.3230,1.4615,11.1718
+C + filtro compresion,cripto 1d,1.3452,-0.3427,1.8431,19.6294
+C + filtro compresion,acciones 1d,0.0182,-0.3862,0.2468,1.5471
+D + continuacion,cripto 1h,1.2129,-0.3350,1.6038,30.4015
+D + continuacion,cripto 4h,1.3839,-0.3354,1.8181,38.6293
+D + continuacion,cripto 1d,1.5176,-0.3427,1.8813,25.5401
+D + continuacion,acciones 1d,0.0295,-0.4194,0.3365,3.5074
+E FINAL (+ stop en banda),cripto 1h,1.3357,-0.3076,1.7056,38.6979
+E FINAL (+ stop en banda),cripto 4h,1.2824,-0.3413,1.7436,31.9567
+E FINAL (+ stop en banda),cripto 1d,1.3462,-0.3431,1.7992,19.6623
+E FINAL (+ stop en banda),acciones 1d,0.0316,-0.3579,0.3607,4.0220
+E' FINAL solo largos,cripto 1h,0.9526,-0.3544,1.6698,17.2426
+E' FINAL solo largos,cripto 4h,1.1447,-0.3278,1.8253,24.3221
+E' FINAL solo largos,cripto 1d,1.3398,-0.3326,1.8422,19.4627
+E' FINAL solo largos,acciones 1d,0.0543,-0.2111,0.6735,14.5045
+Z comprar y mantener,cripto 1h,1.5582,-0.8720,1.4688,57.9157
+Z comprar y mantener,cripto 4h,1.7206,-0.8477,1.5417,68.3436
+Z comprar y mantener,cripto 1d,1.1983,-0.7298,1.3215,15.3957
+Z comprar y mantener,acciones 1d,0.1737,-0.4533,0.8932,4012.5370

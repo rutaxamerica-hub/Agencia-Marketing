@@ -1,0 +1,28 @@
+part,group,cfg,pf_pct,exp_pct,win,bars,n
+is,acciones 1d,A original,1.1663,0.5509,0.3257,34.7731,2926
+is,acciones 1d,E final,1.4135,1.2889,0.3418,38.2911,1498
+is,acciones 1d,E' solo largos,2.2226,3.2734,0.4179,45.1900,816
+is,cripto 1d,A original,11.7992,86.3255,0.5000,50.9828,174
+is,cripto 1d,E final,17.3414,117.5619,0.5043,53.5641,117
+is,cripto 1d,E' solo largos,37.7650,206.6665,0.5522,65.6567,67
+is,cripto 1h,A original,1.1866,0.4179,0.3384,43.6968,7384
+is,cripto 1h,E final,1.3713,0.7502,0.3309,45.6730,5092
+is,cripto 1h,E' solo largos,1.6343,1.2880,0.3195,45.8130,2610
+is,cripto 4h,A original,1.6322,2.7248,0.3621,45.2810,1712
+is,cripto 4h,E final,1.8795,3.3966,0.3570,47.2585,1199
+is,cripto 4h,E' solo largos,2.7221,6.3153,0.3645,49.8567,642
+oos,acciones 1d,A original,1.2346,0.7095,0.3280,34.2665,1884
+oos,acciones 1d,E final,1.4572,1.1859,0.3374,35.7462,910
+oos,acciones 1d,E' solo largos,2.6485,3.4918,0.4060,43.5200,500
+oos,acciones 1h,A original,0.9060,-0.1284,0.3239,35.0111,1349
+oos,acciones 1h,E final,1.2208,0.2405,0.3063,35.3109,640
+oos,acciones 1h,E' solo largos,1.7377,0.7304,0.3578,40.5749,327
+oos,cripto 1d,A original,1.4534,3.1827,0.3694,39.6287,509
+oos,cripto 1d,E final,1.6233,4.4264,0.3460,41.0101,396
+oos,cripto 1d,E' solo largos,2.0665,8.0073,0.3255,39.1368,212
+oos,cripto 1h,A original,0.9094,-0.1480,0.3069,39.0393,12768
+oos,cripto 1h,E final,0.9217,-0.1186,0.2863,38.5555,8222
+oos,cripto 1h,E' solo largos,0.9409,-0.0888,0.2758,37.5226,4162
+oos,cripto 4h,A original,1.1980,0.5725,0.3361,39.7138,3124
+oos,cripto 4h,E final,1.1278,0.3540,0.3312,40.5918,2195
+oos,cripto 4h,E' solo largos,1.1168,0.3463,0.3057,38.1266,1145

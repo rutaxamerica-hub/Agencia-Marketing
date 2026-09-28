@@ -1,0 +1,46 @@
+part,group,cfg,trades,exp_atr,t_mensual,meses
+is,acciones 1d,A original,2926,0.2466,2.4587,549
+is,acciones 1d,FINAL 1.1 solo largos,1063,1.5548,5.9272,387
+is,acciones 1d,FINAL solo largos (umbral 1.0),816,1.6821,4.9269,335
+is,acciones 1d,FINAL umbral 1.0 (congelado),1498,0.6508,3.5708,425
+is,acciones 1d,FINAL umbral 1.1,2020,0.4714,3.8684,484
+is,cripto 1d,A original,174,23.0712,1.1310,35
+is,cripto 1d,FINAL 1.1 solo largos,73,53.9025,1.2247,25
+is,cripto 1d,FINAL solo largos (umbral 1.0),67,56.2470,1.2189,25
+is,cripto 1d,FINAL umbral 1.0 (congelado),117,32.1880,1.2032,36
+is,cripto 1d,FINAL umbral 1.1,134,29.4042,1.2108,37
+is,cripto 1h,A original,7384,0.4809,5.2099,52
+is,cripto 1h,FINAL 1.1 solo largos,2940,1.0385,3.7125,52
+is,cripto 1h,FINAL solo largos (umbral 1.0),2610,1.0350,3.5386,52
+is,cripto 1h,FINAL umbral 1.0 (congelado),5092,0.7081,5.1296,52
+is,cripto 1h,FINAL umbral 1.1,5729,0.6866,5.3497,52
+is,cripto 4h,A original,1712,1.2720,3.2602,51
+is,cripto 4h,FINAL 1.1 solo largos,702,2.6951,3.2639,51
+is,cripto 4h,FINAL solo largos (umbral 1.0),642,2.7712,3.2894,51
+is,cripto 4h,FINAL umbral 1.0 (congelado),1199,1.6222,3.1402,51
+is,cripto 4h,FINAL umbral 1.1,1335,1.5440,3.5986,51
+oos,acciones 1d,A original,1884,0.1777,1.1304,141
+oos,acciones 1d,FINAL 1.1 solo largos,671,1.5542,2.9384,121
+oos,acciones 1d,FINAL solo largos (umbral 1.0),500,1.7225,3.3084,115
+oos,acciones 1d,FINAL umbral 1.0 (congelado),910,0.5406,2.2876,137
+oos,acciones 1d,FINAL umbral 1.1,1240,0.4029,1.6593,141
+oos,acciones 1h,A original,1349,-0.1301,-0.1454,33
+oos,acciones 1h,FINAL 1.1 solo largos,465,0.8842,2.3891,33
+oos,acciones 1h,FINAL solo largos (umbral 1.0),327,0.7673,1.7122,33
+oos,acciones 1h,FINAL umbral 1.0 (congelado),640,0.1059,0.8504,33
+oos,acciones 1h,FINAL umbral 1.1,913,0.0592,0.7501,33
+oos,cripto 1d,A original,509,1.1490,2.2033,55
+oos,cripto 1d,FINAL 1.1 solo largos,224,2.6151,1.9714,46
+oos,cripto 1d,FINAL solo largos (umbral 1.0),212,2.7718,2.0324,45
+oos,cripto 1d,FINAL umbral 1.0 (congelado),396,1.4909,2.4239,53
+oos,cripto 1d,FINAL umbral 1.1,427,1.4019,2.4613,54
+oos,cripto 1h,A original,12768,0.0284,0.8775,57
+oos,cripto 1h,FINAL 1.1 solo largos,4977,0.1893,1.0523,57
+oos,cripto 1h,FINAL solo largos (umbral 1.0),4162,0.1181,0.7634,57
+oos,cripto 1h,FINAL umbral 1.0 (congelado),8222,0.0419,0.8154,57
+oos,cripto 1h,FINAL umbral 1.1,9813,0.1015,1.3026,57
+oos,cripto 4h,A original,3124,0.5049,2.6958,57
+oos,cripto 4h,FINAL 1.1 solo largos,1293,0.7162,1.7555,57
+oos,cripto 4h,FINAL solo largos (umbral 1.0),1145,0.6970,1.7828,57
+oos,cripto 4h,FINAL umbral 1.0 (congelado),2195,0.4464,2.0738,57
+oos,cripto 4h,FINAL umbral 1.1,2483,0.4829,2.2469,57

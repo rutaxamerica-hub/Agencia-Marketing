@@ -1,0 +1,51 @@
+sig,group,edge,progress_med,false
+ORIGINAL Buy/Sell,cripto 1h,0.0031,0.5072,0.2564
+ORIGINAL dots,cripto 1h,-0.0136,0.4767,0.4734
+NUEVA entrada: ruptura en compresion (banda 1.2),cripto 1h,0.0077,0.5069,0.2720
+NUEVA descartada: ruptura en expansion (banda 1.2),cripto 1h,-0.0075,0.5399,0.1689
+NUEVA continuacion en compresion (banda 1.2),cripto 1h,0.0234,0.6118,0.2431
+NUEVA entrada: ruptura en compresion (banda 1.5),cripto 1h,0.0107,0.5336,0.2273
+NUEVA descartada: ruptura en expansion (banda 1.5),cripto 1h,0.0032,0.5685,0.1315
+NUEVA continuacion en compresion (banda 1.5),cripto 1h,0.0312,0.6381,0.2004
+BASE cada 5 velas (ambos lados),cripto 1h,-0.0019,0.4740,0.4936
+BASE cada 5 velas a favor del regimen,cripto 1h,0.0056,0.5734,0.3431
+ORIGINAL Buy/Sell,cripto 4h,0.0403,0.4972,0.2615
+ORIGINAL dots,cripto 4h,-0.0089,0.4739,0.4800
+NUEVA entrada: ruptura en compresion (banda 1.2),cripto 4h,0.0525,0.5046,0.2622
+NUEVA descartada: ruptura en expansion (banda 1.2),cripto 4h,0.0297,0.5192,0.1752
+NUEVA continuacion en compresion (banda 1.2),cripto 4h,0.0766,0.5965,0.2590
+NUEVA entrada: ruptura en compresion (banda 1.5),cripto 4h,0.0589,0.5346,0.2131
+NUEVA descartada: ruptura en expansion (banda 1.5),cripto 4h,0.0479,0.5440,0.1528
+NUEVA continuacion en compresion (banda 1.5),cripto 4h,0.1463,0.6163,0.1993
+BASE cada 5 velas (ambos lados),cripto 4h,-0.0013,0.4737,0.4943
+BASE cada 5 velas a favor del regimen,cripto 4h,0.0055,0.5682,0.3554
+ORIGINAL Buy/Sell,cripto 1d,0.1473,0.5481,0.2520
+ORIGINAL dots,cripto 1d,-0.0376,0.5420,0.5217
+NUEVA entrada: ruptura en compresion (banda 1.2),cripto 1d,0.1983,0.5522,0.2356
+NUEVA descartada: ruptura en expansion (banda 1.2),cripto 1d,-0.1284,0.5604,0.2018
+NUEVA continuacion en compresion (banda 1.2),cripto 1d,-0.0411,0.6895,0.2971
+NUEVA entrada: ruptura en compresion (banda 1.5),cripto 1d,0.1935,0.5842,0.2030
+NUEVA descartada: ruptura en expansion (banda 1.5),cripto 1d,-0.1566,0.6100,0.1687
+NUEVA continuacion en compresion (banda 1.5),cripto 1d,-0.0331,0.7075,0.2500
+BASE cada 5 velas (ambos lados),cripto 1d,-0.0010,0.5207,0.4939
+BASE cada 5 velas a favor del regimen,cripto 1d,-0.0161,0.6372,0.3685
+ORIGINAL Buy/Sell,acciones 1d,-0.0011,0.5021,0.2065
+ORIGINAL dots,acciones 1d,-0.0047,0.4494,0.5223
+NUEVA entrada: ruptura en compresion (banda 1.2),acciones 1d,0.0029,0.4965,0.2012
+NUEVA descartada: ruptura en expansion (banda 1.2),acciones 1d,-0.0373,0.5247,0.1656
+NUEVA continuacion en compresion (banda 1.2),acciones 1d,0.0645,0.6182,0.2135
+NUEVA entrada: ruptura en compresion (banda 1.5),acciones 1d,0.0248,0.5124,0.1537
+NUEVA descartada: ruptura en expansion (banda 1.5),acciones 1d,-0.0049,0.5644,0.1233
+NUEVA continuacion en compresion (banda 1.5),acciones 1d,0.0671,0.6361,0.1592
+BASE cada 5 velas (ambos lados),acciones 1d,-0.0005,0.4969,0.4822
+BASE cada 5 velas a favor del regimen,acciones 1d,0.0213,0.5981,0.2986
+ORIGINAL Buy/Sell,acciones 1h,0.0007,0.5223,0.1979
+ORIGINAL dots,acciones 1h,0.0191,0.4460,0.5030
+NUEVA entrada: ruptura en compresion (banda 1.2),acciones 1h,0.0291,0.5285,0.2034
+NUEVA descartada: ruptura en expansion (banda 1.2),acciones 1h,-0.0054,0.5447,0.1651
+NUEVA continuacion en compresion (banda 1.2),acciones 1h,0.0361,0.6188,0.2367
+NUEVA entrada: ruptura en compresion (banda 1.5),acciones 1h,0.0000,0.5610,0.1504
+NUEVA descartada: ruptura en expansion (banda 1.5),acciones 1h,0.0142,0.5721,0.1256
+NUEVA continuacion en compresion (banda 1.5),acciones 1h,0.0424,0.6437,0.1805
+BASE cada 5 velas (ambos lados),acciones 1h,-0.0045,0.5021,0.4847
+BASE cada 5 velas a favor del regimen,acciones 1h,0.0013,0.6177,0.3170

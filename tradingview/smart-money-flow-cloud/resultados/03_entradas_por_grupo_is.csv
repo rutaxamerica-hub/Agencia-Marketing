@@ -1,0 +1,85 @@
+sig,group,n,edge,tb_sym_win,tb_asym_win,fwd_mean,progress_med
+ORIG dots (retest),cripto 1h,17528,0.0139,0.4759,0.3075,0.1414,0.4609
+R0 banda (original),cripto 1h,7384,0.0359,0.4924,0.3223,0.2610,0.4906
+R1 cruce base (1o),cripto 1h,6810,-0.0441,0.4427,0.2747,-0.0784,0.3960
+R2 giro pendiente (1o),cripto 1h,5879,-0.0274,0.4508,0.2853,-0.0607,0.4092
+R3 base+pendiente,cripto 1h,5881,-0.0272,0.4509,0.2852,-0.0601,0.4092
+R4 flujo cambia signo (1o),cripto 1h,3876,-0.0077,0.4577,0.2706,-0.0823,0.3365
+R5 agotamiento z<=-2 + cierre>max[1],cripto 1h,4732,-0.1240,0.4026,0.2325,-0.4953,0.2401
+P conf=toque,cripto 1h,18200,0.0191,0.4771,0.3120,0.2058,0.4697
+P conf=z sube,cripto 1h,15666,0.0066,0.4705,0.3104,0.2155,0.4833
+P conf=cierre>max[1],cripto 1h,11402,-0.0006,0.4699,0.3116,0.1946,0.4967
+P conf=cierre>base,cripto 1h,16229,0.0206,0.4777,0.3136,0.2432,0.4852
+"P conf=cierre>max[1,2]",cripto 1h,8866,0.0028,0.4742,0.3165,0.1782,0.5018
+P conf=z sube +pendiente,cripto 1h,14292,0.0120,0.4738,0.3135,0.2441,0.4925
+P conf=z sube +flujo,cripto 1h,10200,-0.0092,0.4649,0.3077,0.2462,0.4886
+P conf=cierre>max[1] +pendiente,cripto 1h,10232,0.0081,0.4751,0.3162,0.2364,0.5034
+P toque 0.5 conf=z sube,cripto 1h,28446,0.0238,0.4841,0.3187,0.3026,0.5113
+P toque -0.5 conf=z sube,cripto 1h,9257,-0.0084,0.4608,0.3070,0.1485,0.4548
+K re-cruce banda tras test,cripto 1h,8001,0.0482,0.5032,0.3386,0.4084,0.5624
+K nuevo extremo tras test,cripto 1h,3757,0.0503,0.5097,0.3471,0.4460,0.6416
+BASE cada 5 velas (ambos lados),cripto 1h,129236,-0.0020,0.4712,0.2983,0.0000,0.4508
+BASE cada 5 velas a favor del regimen,cripto 1h,64618,0.0176,0.4809,0.3131,0.2180,0.5446
+ORIG dots (retest),cripto 4h,4047,-0.0005,0.4643,0.3042,0.1647,0.4444
+R0 banda (original),cripto 4h,1712,0.0508,0.4971,0.3411,0.5830,0.4744
+R1 cruce base (1o),cripto 4h,1595,0.0082,0.4639,0.2897,0.0940,0.3858
+R2 giro pendiente (1o),cripto 4h,1398,0.0050,0.4642,0.2911,0.1150,0.4034
+R3 base+pendiente,cripto 4h,1398,0.0050,0.4642,0.2911,0.1150,0.4034
+R4 flujo cambia signo (1o),cripto 4h,907,0.0088,0.4642,0.2944,0.0598,0.3203
+R5 agotamiento z<=-2 + cierre>max[1],cripto 4h,1138,-0.1239,0.3998,0.2469,-0.4486,0.2339
+P conf=toque,cripto 4h,4116,0.0019,0.4653,0.3105,0.2219,0.4497
+P conf=z sube,cripto 4h,3552,0.0008,0.4688,0.3111,0.2085,0.4622
+P conf=cierre>max[1],cripto 4h,2543,0.0110,0.4758,0.3244,0.4466,0.4813
+P conf=cierre>base,cripto 4h,3645,0.0126,0.4716,0.3188,0.3265,0.4651
+"P conf=cierre>max[1,2]",cripto 4h,1983,0.0398,0.4922,0.3439,0.5258,0.4738
+P conf=z sube +pendiente,cripto 4h,3173,0.0142,0.4762,0.3218,0.2913,0.4721
+P conf=z sube +flujo,cripto 4h,2386,0.0088,0.4753,0.3189,0.3443,0.4577
+P conf=cierre>max[1] +pendiente,cripto 4h,2284,0.0219,0.4825,0.3345,0.4450,0.4911
+P toque 0.5 conf=z sube,cripto 4h,6469,0.0201,0.4791,0.3311,0.4550,0.5004
+P toque -0.5 conf=z sube,cripto 4h,2105,-0.0247,0.4556,0.2931,0.0570,0.4351
+K re-cruce banda tras test,cripto 4h,1757,0.0854,0.5196,0.3773,0.6517,0.5572
+K nuevo extremo tras test,cripto 4h,878,0.1412,0.5581,0.3918,1.0792,0.6160
+BASE cada 5 velas (ambos lados),cripto 4h,31292,-0.0009,0.4715,0.3053,0.0000,0.4385
+BASE cada 5 velas a favor del regimen,cripto 4h,15646,0.0221,0.4829,0.3233,0.5170,0.5441
+ORIG dots (retest),cripto 1d,434,0.0300,0.4862,0.3571,1.4888,0.3922
+R0 banda (original),cripto 1d,174,0.1782,0.5517,0.4195,1.7481,0.4393
+R1 cruce base (1o),cripto 1d,156,0.0513,0.4872,0.3269,-0.0197,0.3376
+R2 giro pendiente (1o),cripto 1d,133,0.1278,0.5338,0.3684,0.1449,0.3805
+R3 base+pendiente,cripto 1d,133,0.1278,0.5338,0.3684,0.1449,0.3805
+R4 flujo cambia signo (1o),cripto 1d,75,-0.1467,0.3867,0.2400,-0.6773,0.2613
+R5 agotamiento z<=-2 + cierre>max[1],cripto 1d,128,-0.2812,0.2891,0.1328,-1.1759,0.2596
+P conf=toque,cripto 1d,458,0.0524,0.5022,0.3690,1.9288,0.3889
+P conf=z sube,cripto 1d,387,0.0827,0.5090,0.3721,2.4210,0.3964
+P conf=cierre>max[1],cripto 1d,270,0.1704,0.5481,0.4074,3.2964,0.3771
+P conf=cierre>base,cripto 1d,406,0.0862,0.5172,0.3892,2.4207,0.3885
+"P conf=cierre>max[1,2]",cripto 1d,216,0.1898,0.5556,0.4028,3.4315,0.4213
+P conf=z sube +pendiente,cripto 1d,352,0.1222,0.5284,0.3892,2.8196,0.3991
+P conf=z sube +flujo,cripto 1d,263,0.1483,0.5475,0.3916,2.9788,0.3448
+P conf=cierre>max[1] +pendiente,cripto 1d,243,0.1893,0.5597,0.4156,3.7274,0.3863
+P toque 0.5 conf=z sube,cripto 1d,723,0.1425,0.5380,0.3900,2.1990,0.4221
+P toque -0.5 conf=z sube,cripto 1d,220,-0.0364,0.4500,0.3182,1.9117,0.3565
+K re-cruce banda tras test,cripto 1d,203,0.3005,0.6256,0.4631,4.2211,0.4395
+K nuevo extremo tras test,cripto 1d,107,0.3271,0.6542,0.4766,6.0783,0.4846
+BASE cada 5 velas (ambos lados),cripto 1d,3798,-0.0005,0.4737,0.3094,0.0000,0.4121
+BASE cada 5 velas a favor del regimen,cripto 1d,1899,0.0853,0.5166,0.3476,1.7920,0.5147
+ORIG dots (retest),acciones 1d,5104,0.0219,0.5033,0.3333,0.1110,0.4526
+R0 banda (original),acciones 1d,2926,0.0270,0.5065,0.3339,-0.0347,0.5004
+R1 cruce base (1o),acciones 1d,2701,-0.0204,0.4828,0.3299,0.0631,0.3778
+R2 giro pendiente (1o),acciones 1d,2188,-0.0133,0.4872,0.3341,0.0400,0.4086
+R3 base+pendiente,acciones 1d,2190,-0.0142,0.4868,0.3333,0.0402,0.4085
+R4 flujo cambia signo (1o),acciones 1d,1100,-0.0273,0.4818,0.3118,-0.0209,0.2926
+R5 agotamiento z<=-2 + cierre>max[1],acciones 1d,2020,-0.0960,0.4475,0.2960,-0.0902,0.1969
+P conf=toque,acciones 1d,6114,0.0216,0.5034,0.3337,0.1199,0.4557
+P conf=z sube,acciones 1d,4627,0.0329,0.5079,0.3456,0.1815,0.4708
+P conf=cierre>max[1],acciones 1d,3095,0.0375,0.5102,0.3502,0.1582,0.4930
+P conf=cierre>base,acciones 1d,4892,0.0341,0.5090,0.3455,0.1844,0.4789
+"P conf=cierre>max[1,2]",acciones 1d,2176,0.0271,0.5055,0.3451,0.0770,0.5043
+P conf=z sube +pendiente,acciones 1d,4041,0.0398,0.5110,0.3445,0.2189,0.4865
+P conf=z sube +flujo,acciones 1d,3079,0.0403,0.5119,0.3495,0.3416,0.4745
+P conf=cierre>max[1] +pendiente,acciones 1d,2746,0.0422,0.5127,0.3434,0.1838,0.5069
+P toque 0.5 conf=z sube,acciones 1d,8294,0.0221,0.5034,0.3375,0.1245,0.5115
+P toque -0.5 conf=z sube,acciones 1d,2724,0.0147,0.4985,0.3451,0.1398,0.4361
+K re-cruce banda tras test,acciones 1d,2653,0.0237,0.5043,0.3340,0.2701,0.5697
+K nuevo extremo tras test,acciones 1d,1522,0.0256,0.5046,0.3423,0.3249,0.6384
+BASE cada 5 velas (ambos lados),acciones 1d,41050,-0.0002,0.4931,0.3281,0.0000,0.4950
+BASE cada 5 velas a favor del regimen,acciones 1d,20525,0.0472,0.5168,0.3461,0.3537,0.5887

@@ -1,0 +1,36 @@
+cfg,group,cagr,max_dd,sharpe,total
+"A original (SAR, banda adaptativa)",cripto 1h,-0.3506,-0.8990,-0.6298,-0.8707
+"A original (SAR, banda adaptativa)",cripto 4h,0.1837,-0.4712,0.5980,1.2234
+"A original (SAR, banda adaptativa)",cripto 1d,0.1837,-0.4347,0.6159,1.2227
+"A original (SAR, banda adaptativa)",acciones 1d,0.0346,-0.1726,0.3465,0.4907
+"A original (SAR, banda adaptativa)",acciones 1h,-0.0644,-0.2521,-0.4110,-0.1667
+B banda fija 1.2,cripto 1h,-0.3527,-0.8990,-0.6402,-0.8727
+B banda fija 1.2,cripto 4h,0.1938,-0.4949,0.6168,1.3150
+B banda fija 1.2,cripto 1d,0.1222,-0.4479,0.4872,0.7262
+B banda fija 1.2,acciones 1d,0.0325,-0.1873,0.3278,0.4552
+B banda fija 1.2,acciones 1h,-0.0477,-0.2388,-0.2736,-0.1253
+C + filtro compresion,cripto 1h,-0.2206,-0.7523,-0.6614,-0.6931
+C + filtro compresion,cripto 4h,0.0930,-0.4595,0.4387,0.5244
+C + filtro compresion,cripto 1d,0.1973,-0.3919,0.6827,1.3463
+C + filtro compresion,acciones 1d,0.0231,-0.0987,0.4795,0.3072
+C + filtro compresion,acciones 1h,0.0387,-0.0798,0.5127,0.1096
+D + continuacion,cripto 1h,-0.2031,-0.7049,-0.4374,-0.6590
+D + continuacion,cripto 4h,0.0983,-0.4413,0.4425,0.5596
+D + continuacion,cripto 1d,0.1579,-0.4118,0.5780,1.0026
+D + continuacion,acciones 1d,0.0318,-0.0989,0.5634,0.4438
+D + continuacion,acciones 1h,0.0513,-0.1159,0.5856,0.1469
+E FINAL (+ stop en banda),cripto 1h,-0.1962,-0.6957,-0.4231,-0.6448
+E FINAL (+ stop en banda),cripto 4h,0.0898,-0.4235,0.4215,0.5032
+E FINAL (+ stop en banda),cripto 1d,0.1731,-0.3947,0.6122,1.1304
+E FINAL (+ stop en banda),acciones 1d,0.0337,-0.0971,0.6026,0.4751
+E FINAL (+ stop en banda),acciones 1h,0.0560,-0.1090,0.6428,0.1610
+E' FINAL solo largos,cripto 1h,-0.0945,-0.4972,-0.2408,-0.3752
+E' FINAL solo largos,cripto 4h,0.0255,-0.4290,0.2279,0.1266
+E' FINAL solo largos,cripto 1d,0.1622,-0.3937,0.6176,1.0380
+E' FINAL solo largos,acciones 1d,0.0594,-0.0742,1.1123,0.9666
+E' FINAL solo largos,acciones 1h,0.0861,-0.0493,1.2378,0.2537
+Z comprar y mantener,cripto 1h,-0.0190,-0.7112,0.2894,-0.0868
+Z comprar y mantener,cripto 4h,-0.0189,-0.7112,0.2894,-0.0866
+Z comprar y mantener,cripto 1d,-0.0145,-0.7112,0.2966,-0.0669
+Z comprar y mantener,acciones 1d,0.2051,-0.3187,1.1705,7.9227
+Z comprar y mantener,acciones 1h,0.2909,-0.2286,1.3693,1.0119

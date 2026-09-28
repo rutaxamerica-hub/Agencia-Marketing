@@ -1,0 +1,217 @@
+// This Pine Script® code is subject to the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// Obra derivada de "Smart Money Flow Cloud [BOSWaves]" © BOSWaves (MPL 2.0).
+// Cambios respecto al original (justificados en INFORME.md):
+//   - Banda fija por defecto (la banda adaptativa por money flow no aportaba valor; queda como opcion).
+//   - Filtro de compresion de volatilidad (ATR / ATR largo): descarta los cambios de regimen tardios.
+//   - Continuacion tras test de la base; pullback como estado descriptivo (sin "retest dots").
+//   - Posicion conceptual con salida por cambio de regimen y stop en la banda contraria.
+//   - Sin reversiones tempranas ni "fin de pullback": se midieron sin ventaja o con ventaja negativa.
+//   - Senales solo en velas cerradas (sin parpadeo intrabarra). Sin lookahead ni request.security.
+
+//@version=6
+indicator("SMF Cloud — Señales validadas", shorttitle="SMF Validado", overlay=true, max_labels_count=500)
+
+// ───────────────────────────── Grupos y colores ─────────────────────────────
+const string G_CORE = "Núcleo de tendencia"
+const string G_SQ   = "Filtro de compresión (descarta señales tardías)"
+const string G_SIG  = "Señales"
+const string G_POS  = "Posición conceptual (salidas y stop)"
+const string G_VIS  = "Visual"
+
+// ───────────────────────────── Entradas ─────────────────────────────
+int    len        = input.int(34, "Longitud de la base (EMA)", minval=5, group=G_CORE)
+int    smoothLen  = input.int(3, "Suavizado de la base", minval=1, group=G_CORE)
+int    atrLen     = input.int(14, "Longitud ATR", minval=1, group=G_CORE)
+string bandMode   = input.string("Fija", "Tipo de banda", options=["Fija", "Adaptativa por flujo (original)"], group=G_CORE,
+     tooltip="Fija = base ± mult·ATR (recomendada). Adaptativa = cálculo original por money flow, solo para comparar: no mejoró los resultados.")
+float  bandMult   = input.float(1.2, "Multiplicador de banda (fija)", minval=0.1, step=0.1, group=G_CORE,
+     tooltip="Más bajo = señales antes y más ruido. Más alto = señales más tardías y más limpias. Zona robusta medida: 1.0 – 1.5.")
+int    mfLen      = input.int(24, "Flujo: ventana (solo adaptativa)", minval=2, group=G_CORE)
+int    mfSmooth   = input.int(5, "Flujo: suavizado (solo adaptativa)", minval=1, group=G_CORE)
+float  mfPower    = input.float(1.2, "Flujo: potencia (solo adaptativa)", minval=0.5, step=0.1, group=G_CORE)
+float  minMult    = input.float(0.9, "Flujo: mult. mínimo (solo adaptativa)", minval=0.1, step=0.1, group=G_CORE)
+float  maxMult    = input.float(2.2, "Flujo: mult. máximo (solo adaptativa)", minval=0.1, step=0.1, group=G_CORE)
+
+bool   useSq      = input.bool(true, "Activar filtro de compresión", group=G_SQ,
+     tooltip="Solo acepta rupturas cuando ATR corto / ATR largo < umbral. Las rupturas con la volatilidad ya expandida llegan con más de la mitad del movimiento hecho y no tuvieron ventaja.")
+int    atrLongLen = input.int(100, "ATR largo", minval=20, group=G_SQ)
+float  sqTh       = input.float(1.0, "Umbral ATR / ATR largo", minval=0.5, maxval=2.0, step=0.05, group=G_SQ,
+     tooltip="Más bajo = más selectivo. Zona robusta medida: 0.9 – 1.2. En cripto 4h fuera de muestra 1.1 – 1.2 se comportó mejor que 1.0.")
+
+bool   showEntries   = input.bool(true, "Entradas (ruptura en compresión)", group=G_SIG)
+bool   showCont      = input.bool(true, "Continuación tras pullback", group=G_SIG)
+bool   showLate      = input.bool(true, "Cambios de régimen tardíos (no operables)", group=G_SIG)
+bool   showPB        = input.bool(true, "Pullback (test de la base)", group=G_SIG)
+bool   confirmedOnly = input.bool(true, "Solo velas cerradas", group=G_SIG,
+     tooltip="Las señales se calculan con el cierre: activado, nunca aparecen ni desaparecen dentro de una vela en tiempo real.")
+
+bool   allowLong  = input.bool(true, "Largos", group=G_POS, inline="dir")
+bool   allowShort = input.bool(true, "Cortos", group=G_POS, inline="dir",
+     tooltip="En acciones/ETF los cortos tuvieron expectativa negativa: se recomienda solo largos.")
+bool   showExits  = input.bool(true, "Mostrar salidas y stop", group=G_POS)
+
+color  bullCol    = input.color(#00C8FF, "Alcista", group=G_VIS, inline="c")
+color  bearCol    = input.color(#FF005D, "Bajista", group=G_VIS, inline="c")
+bool   showCloud  = input.bool(true, "Nube de la base", group=G_VIS)
+bool   showBands  = input.bool(true, "Bandas", group=G_VIS)
+bool   paintBars  = input.bool(true, "Colorear velas por régimen", group=G_VIS)
+bool   showSqBg   = input.bool(false, "Sombrear zonas de compresión", group=G_VIS)
+bool   showTable  = input.bool(true, "Panel de estado", group=G_VIS)
+
+// ───────────────────────────── Cálculos base ─────────────────────────────
+// Base: EMA(EMA(close, len), suavizado). En mercados 24/7 la "nube" (base de close vs base de open)
+// es exactamente la pendiente de la base: es visual, no información nueva.
+float basis    = ta.ema(ta.ema(close, len), smoothLen)
+float basisO   = ta.ema(ta.ema(open, len), smoothLen)
+float atr      = ta.atr(atrLen)
+float atrLong  = ta.atr(atrLongLen)
+float atrRatio = atr / atrLong
+
+// Banda adaptativa original (solo si se elige): |money flow| ensancha ambas bandas por igual.
+float clv      = high == low ? 0.0 : ((close - low) - (high - close)) / (high - low)
+float mfRaw    = clv * volume
+float mfNum    = math.sum(mfRaw, mfLen)
+float mfDen    = math.sum(math.abs(mfRaw), mfLen)
+float mf       = mfDen == 0.0 ? 0.0 : mfNum / mfDen
+float mfSm     = mfSmooth > 1 ? ta.ema(mf, mfSmooth) : mf
+float strength = math.max(0.0, math.min(1.0, math.pow(math.abs(mfSm), mfPower)))
+float mult     = bandMode == "Fija" ? bandMult : minMult + (maxMult - minMult) * strength
+
+float upper = basis + atr * mult
+float lower = basis - atr * mult
+
+// ───────────────────────────── Régimen (histéresis, igual que el original) ─────────────────────────────
+bool longCond  = ta.crossover(close, upper)
+bool shortCond = ta.crossunder(close, lower)
+var int regime = -1
+int prevRegime = regime
+regime := longCond ? 1 : shortCond ? -1 : regime
+bool switchUp   = regime == 1 and prevRegime == -1
+bool switchDn   = regime == -1 and prevRegime == 1
+bool compressed = not useSq or atrRatio < sqTh
+
+// ───────────────────────────── Pullback y continuación ─────────────────────────────
+// Pullback = primer test de la base dentro del régimen (mínimo <= base en alcista).
+// Continuación = tras ese test, el cierre vuelve a cruzar la banda del régimen.
+var bool tested = false
+bool pbUpRaw    = false
+bool pbDnRaw    = false
+bool contUpRaw  = false
+bool contDnRaw  = false
+if regime != prevRegime
+    tested := false
+else if not na(basis) and not na(upper[1])
+    if regime == 1
+        if not tested and low <= basis
+            tested  := true
+            pbUpRaw := true
+        else if tested and longCond
+            contUpRaw := true
+            tested    := false
+    else
+        if not tested and high >= basis
+            tested  := true
+            pbDnRaw := true
+        else if tested and shortCond
+            contDnRaw := true
+            tested    := false
+
+// ───────────────────────────── Señales ─────────────────────────────
+bool ok         = not confirmedOnly or barstate.isconfirmed
+bool entryLong  = ok and switchUp and compressed and allowLong
+bool entryShort = ok and switchDn and compressed and allowShort
+bool contLong   = ok and contUpRaw and compressed and allowLong
+bool contShort  = ok and contDnRaw and compressed and allowShort
+bool lateUp     = ok and switchUp and not compressed
+bool lateDn     = ok and switchDn and not compressed
+bool pbUp       = ok and pbUpRaw
+bool pbDn       = ok and pbDnRaw
+
+// ───────────────────────────── Posición conceptual (misma lógica que la strategy) ─────────────────────────────
+var int   pos      = 0
+var float stopP    = na
+var int   entryBar = na
+bool exitLong  = false
+bool exitShort = false
+bool stopLong  = false
+bool stopShort = false
+if ok
+    bool goL = entryLong or contLong
+    bool goS = entryShort or contShort
+    // 1) stop en la banda contraria fijada al entrar (activo desde la vela siguiente a la señal)
+    if pos == 1 and bar_index > entryBar and low <= stopP
+        stopLong := true
+        pos      := 0
+    else if pos == -1 and bar_index > entryBar and high >= stopP
+        stopShort := true
+        pos       := 0
+    // 2) salida por cambio de régimen (cierre cruza la banda contraria)
+    if pos == 1 and shortCond
+        exitLong := not goS
+        pos      := 0
+    else if pos == -1 and longCond
+        exitShort := not goL
+        pos       := 0
+    // 3) entradas (una señal contraria gira la posición)
+    if goL and pos != 1
+        pos      := 1
+        stopP    := lower
+        entryBar := bar_index
+    else if goS and pos != -1
+        pos      := -1
+        stopP    := upper
+        entryBar := bar_index
+
+// ───────────────────────────── Dibujo ─────────────────────────────
+color regCol = regime == 1 ? bullCol : bearCol
+barcolor(paintBars ? regCol : na, title="Velas por régimen")
+
+pB = plot(showCloud ? basis : na, "Base (close)", color=regCol, linewidth=2)
+pO = plot(showCloud ? basisO : na, "Base (open)", color=color.new(regCol, 40), linewidth=1)
+fill(pB, pO, color=color.new(regCol, 75), title="Nube")
+
+plot(showBands ? upper : na, "Banda superior", color=color.new(bullCol, 55), linewidth=1)
+plot(showBands ? lower : na, "Banda inferior", color=color.new(bearCol, 55), linewidth=1)
+plot(showExits and pos != 0 ? stopP : na, "Stop activo", color=color.new(color.orange, 0), style=plot.style_linebr, linewidth=1)
+
+bgcolor(showSqBg and useSq and compressed ? color.new(color.gray, 90) : na, title="Compresión")
+
+plotshape(showEntries and entryLong, "Entrada Long", shape.labelup, location.belowbar, bullCol, text="Long", textcolor=color.black, size=size.small)
+plotshape(showEntries and entryShort, "Entrada Short", shape.labeldown, location.abovebar, bearCol, text="Short", textcolor=color.white, size=size.small)
+plotshape(showCont and contLong, "Continuación Long", shape.triangleup, location.belowbar, bullCol, text="Cont", textcolor=bullCol, size=size.tiny)
+plotshape(showCont and contShort, "Continuación Short", shape.triangledown, location.abovebar, bearCol, text="Cont", textcolor=bearCol, size=size.tiny)
+plotshape(showLate and lateUp, "Cambio alcista tardío", shape.circle, location.belowbar, color.new(color.gray, 20), text="tarde", textcolor=color.gray, size=size.tiny)
+plotshape(showLate and lateDn, "Cambio bajista tardío", shape.circle, location.abovebar, color.new(color.gray, 20), text="tarde", textcolor=color.gray, size=size.tiny)
+plotshape(showPB and pbUp, "Pullback alcista (test de base)", shape.diamond, location.belowbar, color.new(bullCol, 50), size=size.tiny)
+plotshape(showPB and pbDn, "Pullback bajista (test de base)", shape.diamond, location.abovebar, color.new(bearCol, 50), size=size.tiny)
+plotshape(showExits and exitLong, "Salida Long", shape.xcross, location.abovebar, color.new(color.orange, 0), text="Salida", textcolor=color.orange, size=size.tiny)
+plotshape(showExits and exitShort, "Salida Short", shape.xcross, location.belowbar, color.new(color.orange, 0), text="Salida", textcolor=color.orange, size=size.tiny)
+plotshape(showExits and stopLong, "Stop Long", shape.xcross, location.belowbar, color.new(color.red, 0), text="Stop", textcolor=color.red, size=size.tiny)
+plotshape(showExits and stopShort, "Stop Short", shape.xcross, location.abovebar, color.new(color.red, 0), text="Stop", textcolor=color.red, size=size.tiny)
+
+// ───────────────────────────── Panel de estado ─────────────────────────────
+var table panel = table.new(position.top_right, 2, 5, bgcolor=color.new(chart.bg_color, 10), border_width=1, border_color=color.new(chart.fg_color, 85))
+if showTable and barstate.islast
+    string sReg   = regime == 1 ? (tested ? "Alcista · pullback en curso" : "Alcista · tendencia") : (tested ? "Bajista · pullback en curso" : "Bajista · tendencia")
+    string sVol   = na(atrRatio) ? "—" : str.tostring(atrRatio, "0.00") + (compressed ? "  (comprimida: señales válidas)" : "  (expandida: señales tardías)")
+    string sPos   = pos == 1 ? "Long" : pos == -1 ? "Short" : "Fuera"
+    string sStop  = pos != 0 ? str.tostring(stopP, format.mintick) : "—"
+    table.cell(panel, 0, 0, "Régimen", text_color=chart.fg_color, text_size=size.small)
+    table.cell(panel, 1, 0, sReg, text_color=regCol, text_size=size.small)
+    table.cell(panel, 0, 1, "ATR / ATR largo", text_color=chart.fg_color, text_size=size.small)
+    table.cell(panel, 1, 1, sVol, text_color=chart.fg_color, text_size=size.small)
+    table.cell(panel, 0, 2, "Posición", text_color=chart.fg_color, text_size=size.small)
+    table.cell(panel, 1, 2, sPos, text_color=pos == 1 ? bullCol : pos == -1 ? bearCol : chart.fg_color, text_size=size.small)
+    table.cell(panel, 0, 3, "Stop", text_color=chart.fg_color, text_size=size.small)
+    table.cell(panel, 1, 3, sStop, text_color=chart.fg_color, text_size=size.small)
+    table.cell(panel, 0, 4, "Banda", text_color=chart.fg_color, text_size=size.small)
+    table.cell(panel, 1, 4, bandMode + " · x" + str.tostring(mult, "0.00"), text_color=chart.fg_color, text_size=size.small)
+
+// ───────────────────────────── Alertas (usar "Una vez por cierre de vela") ─────────────────────────────
+alertcondition(entryLong, "Entrada Long", "SMF Validado: ENTRADA LONG {{ticker}} {{interval}} cierre {{close}}")
+alertcondition(entryShort, "Entrada Short", "SMF Validado: ENTRADA SHORT {{ticker}} {{interval}} cierre {{close}}")
+alertcondition(contLong, "Continuación Long", "SMF Validado: CONTINUACION LONG {{ticker}} {{interval}} cierre {{close}}")
+alertcondition(contShort, "Continuación Short", "SMF Validado: CONTINUACION SHORT {{ticker}} {{interval}} cierre {{close}}")
+alertcondition(exitLong or stopLong, "Salida Long", "SMF Validado: SALIDA LONG {{ticker}} {{interval}} cierre {{close}}")
+alertcondition(exitShort or stopShort, "Salida Short", "SMF Validado: SALIDA SHORT {{ticker}} {{interval}} cierre {{close}}")
+alertcondition(pbUp or pbDn, "Pullback (test de base)", "SMF Validado: PULLBACK {{ticker}} {{interval}}")

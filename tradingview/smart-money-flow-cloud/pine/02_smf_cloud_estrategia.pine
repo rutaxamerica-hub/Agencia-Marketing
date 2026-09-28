@@ -1,0 +1,199 @@
+// This Pine Script® code is subject to the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// Obra derivada de "Smart Money Flow Cloud [BOSWaves]" © BOSWaves (MPL 2.0).
+// Version strategy() de "SMF Cloud — Señales validadas". Misma logica que research/system.py:
+//   - Senal al cierre de la vela -> orden de mercado en la apertura siguiente.
+//   - Stop colocado junto con la entrada: activo ya en la vela de ejecucion.
+//   - Una senal contraria gira la posicion. Sin piramidacion.
+//   - Trailing (si se elige) recalculado al cierre y solo a favor.
+// Comision y slippage: pestana "Propiedades" (por defecto 0.05 % por lado y 1 tick).
+
+//@version=6
+strategy("SMF Cloud — Estrategia validada", shorttitle="SMF Estrategia", overlay=true,
+     initial_capital=10000, default_qty_type=strategy.percent_of_equity, default_qty_value=100,
+     commission_type=strategy.commission.percent, commission_value=0.05, slippage=1,
+     pyramiding=0, process_orders_on_close=false, calc_on_every_tick=false,
+     margin_long=0, margin_short=0)
+// margin_long/short = 0 desactiva la simulacion de margin calls: el tamano nunca supera el capital
+// (sin apalancamiento), igual que en el backtest de Python.
+
+// ───────────────────────────── Grupos ─────────────────────────────
+const string G_CORE = "Núcleo de tendencia"
+const string G_SQ   = "Filtro de compresión"
+const string G_ENT  = "Entradas"
+const string G_EXIT = "Salidas y stop"
+const string G_SIZE = "Tamaño de posición"
+const string G_TIME = "Rango temporal"
+
+// ───────────────────────────── Entradas ─────────────────────────────
+int    len        = input.int(34, "Longitud de la base (EMA)", minval=5, group=G_CORE)
+int    smoothLen  = input.int(3, "Suavizado de la base", minval=1, group=G_CORE)
+int    atrLen     = input.int(14, "Longitud ATR", minval=1, group=G_CORE)
+string bandMode   = input.string("Fija", "Tipo de banda", options=["Fija", "Adaptativa por flujo (original)"], group=G_CORE)
+float  bandMult   = input.float(1.2, "Multiplicador de banda (fija)", minval=0.1, step=0.1, group=G_CORE)
+int    mfLen      = input.int(24, "Flujo: ventana (solo adaptativa)", minval=2, group=G_CORE)
+int    mfSmooth   = input.int(5, "Flujo: suavizado (solo adaptativa)", minval=1, group=G_CORE)
+float  mfPower    = input.float(1.2, "Flujo: potencia (solo adaptativa)", minval=0.5, step=0.1, group=G_CORE)
+float  minMult    = input.float(0.9, "Flujo: mult. mínimo (solo adaptativa)", minval=0.1, step=0.1, group=G_CORE)
+float  maxMult    = input.float(2.2, "Flujo: mult. máximo (solo adaptativa)", minval=0.1, step=0.1, group=G_CORE)
+
+bool   useSq      = input.bool(true, "Activar filtro de compresión", group=G_SQ)
+int    atrLongLen = input.int(100, "ATR largo", minval=20, group=G_SQ)
+float  sqTh       = input.float(1.0, "Umbral ATR / ATR largo", minval=0.5, maxval=2.0, step=0.05, group=G_SQ)
+
+bool   useBreak   = input.bool(true, "Ruptura que cambia el régimen", group=G_ENT)
+bool   useCont    = input.bool(true, "Continuación tras pullback", group=G_ENT)
+string dirMode    = input.string("Ambas", "Dirección", options=["Ambas", "Solo largos", "Solo cortos"], group=G_ENT,
+     tooltip="En acciones/ETF los cortos tuvieron expectativa negativa: usar 'Solo largos'.")
+
+string exitMode   = input.string("Cambio de régimen", "Salida", options=["Cambio de régimen", "Régimen + cierre cruza la base", "Régimen + chandelier"], group=G_EXIT,
+     tooltip="La salida por cambio de régimen (cierre más allá de la banda contraria) fue la mejor. Las alternativas más rápidas recortan las tendencias y bajaron la expectativa.")
+float  chandK     = input.float(4.0, "Chandelier: ATR desde el extremo", minval=0.5, step=0.5, group=G_EXIT)
+string stopMode   = input.string("Banda contraria al entrar", "Stop inicial", options=["Banda contraria al entrar", "ATR x k", "Ninguno"], group=G_EXIT)
+float  stopK      = input.float(2.0, "Stop: ATR x k", minval=0.5, step=0.5, group=G_EXIT)
+int    maxBars    = input.int(0, "Stop temporal (velas, 0 = no)", minval=0, group=G_EXIT)
+
+string sizeMode   = input.string("% del capital", "Modo", options=["% del capital", "Riesgo % hasta el stop", "Cantidad fija"], group=G_SIZE,
+     tooltip="Riesgo %: tamaño tal que si salta el stop se pierde ese % del capital (limitado a no usar apalancamiento).")
+float  sizeVal    = input.float(100.0, "Valor (% o cantidad)", minval=0.0001, group=G_SIZE)
+
+int    tStart     = input.time(timestamp("2018-01-01T00:00:00+0000"), "Desde", group=G_TIME)
+int    tEnd       = input.time(timestamp("2100-01-01T00:00:00+0000"), "Hasta", group=G_TIME)
+
+// ───────────────────────────── Cálculos (idénticos al indicador) ─────────────────────────────
+float basis    = ta.ema(ta.ema(close, len), smoothLen)
+float atr      = ta.atr(atrLen)
+float atrLong  = ta.atr(atrLongLen)
+float atrRatio = atr / atrLong
+
+float clv      = high == low ? 0.0 : ((close - low) - (high - close)) / (high - low)
+float mfRaw    = clv * volume
+float mfNum    = math.sum(mfRaw, mfLen)
+float mfDen    = math.sum(math.abs(mfRaw), mfLen)
+float mf       = mfDen == 0.0 ? 0.0 : mfNum / mfDen
+float mfSm     = mfSmooth > 1 ? ta.ema(mf, mfSmooth) : mf
+float strength = math.max(0.0, math.min(1.0, math.pow(math.abs(mfSm), mfPower)))
+float mult     = bandMode == "Fija" ? bandMult : minMult + (maxMult - minMult) * strength
+float upper    = basis + atr * mult
+float lower    = basis - atr * mult
+
+bool longCond  = ta.crossover(close, upper)
+bool shortCond = ta.crossunder(close, lower)
+bool baseUp    = ta.crossover(close, basis)
+bool baseDn    = ta.crossunder(close, basis)
+var int regime = -1
+int prevRegime = regime
+regime := longCond ? 1 : shortCond ? -1 : regime
+bool switchUp   = regime == 1 and prevRegime == -1
+bool switchDn   = regime == -1 and prevRegime == 1
+bool compressed = not useSq or atrRatio < sqTh
+
+var bool tested = false
+bool contUpRaw  = false
+bool contDnRaw  = false
+if regime != prevRegime
+    tested := false
+else if not na(basis) and not na(upper[1])
+    if regime == 1
+        if not tested and low <= basis
+            tested := true
+        else if tested and longCond
+            contUpRaw := true
+            tested    := false
+    else
+        if not tested and high >= basis
+            tested := true
+        else if tested and shortCond
+            contDnRaw := true
+            tested    := false
+
+// ───────────────────────────── Señales ─────────────────────────────
+bool inRange  = time >= tStart and time <= tEnd
+bool longsOk  = dirMode != "Solo cortos"
+bool shortsOk = dirMode != "Solo largos"
+bool goL = inRange and longsOk and compressed and ((useBreak and switchUp) or (useCont and contUpRaw))
+bool goS = inRange and shortsOk and compressed and ((useBreak and switchDn) or (useCont and contDnRaw))
+bool xL  = shortCond or (exitMode == "Régimen + cierre cruza la base" and baseDn)
+bool xS  = longCond or (exitMode == "Régimen + cierre cruza la base" and baseUp)
+
+float newStopL = stopMode == "Banda contraria al entrar" ? lower : stopMode == "ATR x k" ? close - stopK * atr : na
+float newStopS = stopMode == "Banda contraria al entrar" ? upper : stopMode == "ATR x k" ? close + stopK * atr : na
+
+f_qty(float stopPx) =>
+    float eq   = strategy.equity
+    float full = eq / close
+    float q    = switch sizeMode
+        "% del capital"  => eq * sizeVal / 100.0 / close
+        "Cantidad fija"  => sizeVal
+        => na(stopPx) or math.abs(close - stopPx) <= 0 ? full : math.min(eq * sizeVal / 100.0 / math.abs(close - stopPx), full)
+    math.max(q, 0.0)
+
+// ───────────────────────────── Gestión de la posición ─────────────────────────────
+var float stopL  = na
+var float stopS  = na
+var float ext    = na
+var int   barsIn = 0
+
+float posSize  = strategy.position_size
+bool  newLong  = posSize > 0 and nz(posSize[1]) <= 0
+bool  newShort = posSize < 0 and nz(posSize[1]) >= 0
+barsIn := posSize == 0 ? 0 : (newLong or newShort) ? 1 : barsIn + 1
+
+// trailing chandelier desde la entrada (recalculado al cierre, solo a favor)
+if posSize > 0
+    ext := newLong ? high : math.max(ext, high)
+    if exitMode == "Régimen + chandelier"
+        float ch = ext - chandK * atr
+        stopL := na(stopL) ? ch : math.max(stopL, ch)
+else if posSize < 0
+    ext := newShort ? low : math.min(ext, low)
+    if exitMode == "Régimen + chandelier"
+        float ch = ext + chandK * atr
+        stopS := na(stopS) ? ch : math.min(stopS, ch)
+
+bool placedL = false
+bool placedS = false
+if posSize > 0
+    if goS
+        stopS := newStopS
+        strategy.entry("S", strategy.short, qty=f_qty(newStopS), comment="Giro a short")
+        placedS := true
+    else if xL and not goL
+        strategy.close("L", comment="Salida régimen")
+    else if maxBars > 0 and barsIn >= maxBars and not goL
+        strategy.close("L", comment="Salida tiempo")
+else if posSize < 0
+    if goL
+        stopL := newStopL
+        strategy.entry("L", strategy.long, qty=f_qty(newStopL), comment="Giro a long")
+        placedL := true
+    else if xS and not goS
+        strategy.close("S", comment="Salida régimen")
+    else if maxBars > 0 and barsIn >= maxBars and not goS
+        strategy.close("S", comment="Salida tiempo")
+else
+    if goL and not goS
+        stopL := newStopL
+        strategy.entry("L", strategy.long, qty=f_qty(newStopL), comment=switchUp ? "Long" : "Cont long")
+        placedL := true
+    else if goS and not goL
+        stopS := newStopS
+        strategy.entry("S", strategy.short, qty=f_qty(newStopS), comment=switchDn ? "Short" : "Cont short")
+        placedS := true
+
+// órdenes stop (se colocan con la entrada para que estén activas en la vela de ejecución)
+if (posSize > 0 or placedL) and not na(stopL)
+    strategy.exit("Stop L", from_entry="L", stop=stopL, comment_loss="Stop L", comment_profit="Trailing L")
+if (posSize < 0 or placedS) and not na(stopS)
+    strategy.exit("Stop S", from_entry="S", stop=stopS, comment_loss="Stop S", comment_profit="Trailing S")
+
+// fin del rango temporal: cerrar todo
+if time > tEnd and posSize != 0
+    strategy.close_all(comment="Fin de rango")
+
+// ───────────────────────────── Dibujo mínimo ─────────────────────────────
+color regCol = regime == 1 ? #00C8FF : #FF005D
+plot(basis, "Base", color=regCol, linewidth=2)
+plot(upper, "Banda superior", color=color.new(#00C8FF, 60))
+plot(lower, "Banda inferior", color=color.new(#FF005D, 60))
+plot(posSize > 0 ? stopL : posSize < 0 ? stopS : na, "Stop", color=color.orange, style=plot.style_linebr)
+bgcolor(useSq and compressed ? color.new(color.gray, 94) : na, title="Compresión")

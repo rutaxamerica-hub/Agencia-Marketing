@@ -1,0 +1,46 @@
+part,group,cfg,cagr,max_dd,sharpe
+is,acciones 1d,A original 100%,0.0162,-0.5651,0.1825
+is,acciones 1d,FINAL 100%,0.0316,-0.3579,0.3607
+is,acciones 1d,FINAL riesgo 1%,0.0069,-0.0779,0.3410
+is,acciones 1d,FINAL riesgo 2%,0.0132,-0.1491,0.3438
+is,acciones 1d,FINAL solo largos riesgo 1%,0.0112,-0.0559,0.6515
+is,cripto 1d,A original 100%,1.6437,-0.4194,1.7640
+is,cripto 1d,FINAL 100%,1.3462,-0.3431,1.7992
+is,cripto 1d,FINAL riesgo 1%,0.2151,-0.1039,1.4923
+is,cripto 1d,FINAL riesgo 2%,0.3453,-0.1252,1.6286
+is,cripto 1d,FINAL solo largos riesgo 1%,0.2101,-0.1022,1.4651
+is,cripto 1h,A original 100%,0.6419,-0.4212,1.0345
+is,cripto 1h,FINAL 100%,1.3357,-0.3076,1.7056
+is,cripto 1h,FINAL riesgo 1%,0.4332,-0.0995,2.1062
+is,cripto 1h,FINAL riesgo 2%,0.9121,-0.1772,2.1214
+is,cripto 1h,FINAL solo largos riesgo 1%,0.2734,-0.0990,1.8445
+is,cripto 4h,A original 100%,1.0916,-0.4079,1.4565
+is,cripto 4h,FINAL 100%,1.2824,-0.3413,1.7436
+is,cripto 4h,FINAL riesgo 1%,0.2062,-0.0559,1.9477
+is,cripto 4h,FINAL riesgo 2%,0.4282,-0.1081,1.9941
+is,cripto 4h,FINAL solo largos riesgo 1%,0.1742,-0.0699,1.8612
+oos,acciones 1d,A original 100%,0.0346,-0.1726,0.3465
+oos,acciones 1d,FINAL 100%,0.0337,-0.0971,0.6026
+oos,acciones 1d,FINAL riesgo 1%,0.0071,-0.0247,0.5572
+oos,acciones 1d,FINAL riesgo 2%,0.0136,-0.0471,0.5669
+oos,acciones 1d,FINAL solo largos riesgo 1%,0.0124,-0.0163,1.0643
+oos,acciones 1h,A original 100%,-0.0644,-0.2521,-0.4110
+oos,acciones 1h,FINAL 100%,0.0560,-0.1090,0.6428
+oos,acciones 1h,FINAL riesgo 1%,0.0122,-0.0551,0.3161
+oos,acciones 1h,FINAL riesgo 2%,0.0280,-0.0858,0.4468
+oos,acciones 1h,FINAL solo largos riesgo 1%,0.0297,-0.0265,0.9719
+oos,cripto 1d,A original 100%,0.1837,-0.4347,0.6159
+oos,cripto 1d,FINAL 100%,0.1731,-0.3947,0.6122
+oos,cripto 1d,FINAL riesgo 1%,0.0348,-0.0479,0.8013
+oos,cripto 1d,FINAL riesgo 2%,0.0665,-0.0830,0.8293
+oos,cripto 1d,FINAL solo largos riesgo 1%,0.0346,-0.0517,0.8196
+oos,cripto 1h,A original 100%,-0.3506,-0.8990,-0.6298
+oos,cripto 1h,FINAL 100%,-0.1962,-0.6957,-0.4231
+oos,cripto 1h,FINAL riesgo 1%,-0.0108,-0.2084,-0.0001
+oos,cripto 1h,FINAL riesgo 2%,-0.0820,-0.4400,-0.2130
+oos,cripto 1h,FINAL solo largos riesgo 1%,0.0045,-0.2209,0.0956
+oos,cripto 4h,A original 100%,0.1837,-0.4712,0.5980
+oos,cripto 4h,FINAL 100%,0.0898,-0.4235,0.4215
+oos,cripto 4h,FINAL riesgo 1%,0.0581,-0.0877,0.7906
+oos,cripto 4h,FINAL riesgo 2%,0.1027,-0.1699,0.7547
+oos,cripto 4h,FINAL solo largos riesgo 1%,0.0464,-0.0872,0.7367
