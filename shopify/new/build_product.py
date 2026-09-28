@@ -35,6 +35,15 @@ pd['blocks']['recibes'] = group([
     ("k", text("<h2>Qué incluye</h2>", preset="h6")),
     ("l", text("<ul><li><strong>{{ closest.product.title }}</strong></li><li><strong>Guía de uso EJE:</strong> cómo usarlo, cuándo, en qué zona, cuánto tiempo y cada cuánto.</li></ul>", preset="rte")),
 ], gap=8, bg=CARD, border="solid", border_color=LINE, radius=6, pad=(18,14,20,20))
+# Guía de uso: antes vivía escondida dentro del acordeón; ahora es su propia
+# tarjeta visible, con borde de acento, justo después de "Qué incluye".
+pd['blocks']['guia_uso'] = group([
+    ("head", group([
+        ("icon", icon("clipboard", width=20, color=ACCENT)),
+        ("h", text("<h2>Guía de uso incluida</h2>", preset="h6")),
+    ], direction="row", gap=8, valign="center", mobile_vertical=False)),
+    ("l", text("<p>Cada compra trae la guía EJE: <strong>cómo</strong> usarlo, <strong>cuándo</strong>, <strong>dónde</strong> aplicarlo y <strong>cuánto tiempo</strong>, más cómo ajustarlo a tu cuerpo.</p>", preset="rte")),
+], gap=10, bg=CARD, border="solid", border_color=ACCENT, radius=6, pad=(18,14,20,20))
 # descripción
 pd['blocks']['text_aEtTtq']['settings'].update({"type_preset":"rte"})
 # acordeón con información secundaria
@@ -44,14 +53,13 @@ def row(key, heading, html, ic):
 acc_blocks = dict([
   row("envios", "Envíos", "<p>Despachamos a todo Chile con seguimiento.</p>", "truck"),
   row("cambios", "Cambios y devoluciones", "<p>Si el producto no coincide con lo que recomendó tu diagnóstico, lo cambias o lo devuelves.</p>", "return"),
-  row("guia", "Guía de uso", "<p>Cada producto incluye su guía de uso EJE:</p><ul><li><strong>Cómo</strong> usarlo, paso a paso.</li><li><strong>Cuándo</strong> usarlo en tu día o tu entrenamiento.</li><li><strong>Dónde:</strong> en qué zona aplicarlo.</li><li><strong>Cuánto tiempo</strong> y cada cuánto.</li><li><strong>Cómo ajustarlo</strong> a tu cuerpo y tu espacio.</li></ul>", "clipboard"),
   row("dudas", "¿No sabes si es para ti?", "<p>Haz el <a href=\"/pages/diagnostico\">diagnóstico gratis</a> (2 minutos) o <a href=\"/pages/contact\">escríbenos</a>.</p>", "question_mark"),
 ])
 pd['blocks']['info'] = {"type":"accordion","settings":{"icon":"plus","dividers":True,"divider_color":LINE,"type_preset":"h5",
     "background_color":"","text_color":"","border":"none","border_width":1,"border_opacity":100,"border_color":"","border_radius":0,
     "padding-block-start":8,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},
     "blocks":acc_blocks,"block_order":list(acc_blocks.keys())}
-pd['block_order'] = ['group_icgrde', 'divider_VJhene', 'variant_picker_R3rGDr', 'buy_buttons_eYQEYi', 'recibes', 'trust', 'text_aEtTtq', 'info']
+pd['block_order'] = ['group_icgrde', 'divider_VJhene', 'variant_picker_R3rGDr', 'buy_buttons_eYQEYi', 'recibes', 'guia_uso', 'trust', 'text_aEtTtq', 'info']
 # recomendaciones
 r = p['sections']['product_recommendations_qggXJq']
 r['blocks']['text_cbcgyb']['settings'].update({"text":"<h2>Combínalo con</h2>","type_preset":"h3","font":"var(--font-heading--family)"})

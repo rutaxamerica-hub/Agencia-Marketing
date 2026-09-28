@@ -73,6 +73,8 @@ cur.update({
   "type_size_paragraph":"16",
   "type_size_h1":"56", "type_size_h2":"40", "type_size_h3":"32", "type_size_h4":"20", "type_size_h5":"16", "type_size_h6":"12",
   "button_border_radius_primary":4, "button_border_radius_secondary":4, "card_corner_radius":4, "inputs_border_radius":4, "popover_border_radius":4, "variant_button_radius":4, "card_hover_effect":"lift",
+  # Botón de compra más vibrante: de un terracota apagado a un rojo-naranja más saturado.
+  "palette_primary_button_background": ACCENT, "palette_primary_button_border": ACCENT,
 })
 dump(s, 'config/settings_data.json')
 print('ok')

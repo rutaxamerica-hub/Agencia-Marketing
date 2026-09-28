@@ -11,7 +11,6 @@ def desc(intro, ideal, incluye=None, extra=None, link=None):
     return h
 
 KIT_SETUP = '<a href="/products/kit-setup-correcto">Kit Setup Correcto</a>'
-KIT_ESC = '<a href="/products/kit-escritorio-completo">Kit Escritorio Completo</a>'
 KIT_REC = '<a href="/products/kit-recuperacion-post-entreno">Kit Recuperación Post-Entreno</a>'
 KIT_POS = '<a href="/products/kit-postura-movilidad">Kit Postura + Movilidad</a>'
 
@@ -29,14 +28,12 @@ P = {
  "gid://shopify/Product/15394572566843": dict(  # Soporte laptop
    bajada="Sube el notebook a la altura de tus ojos.",
    html=desc("Brazo articulado que eleva el notebook a la altura de los ojos. Dejas de mirar hacia abajo y liberas espacio en el escritorio.",
-     ["Trabajas con notebook varias horas al día.", "Terminas la jornada con el cuello tenso."],
-     link=f"También viene en el {KIT_ESC}.")),
+     ["Trabajas con notebook varias horas al día.", "Terminas la jornada con el cuello tenso."])),
  "gid://shopify/Product/15394572599611": dict(  # Cojín asiento
    bajada="Asiento más cómodo en jornadas largas.",
    html=desc("Cojín de memory foam con corte anatómico. Reparte el peso y reduce la presión sobre coxis y glúteos al estar sentado.",
      ["Tu silla se vuelve incómoda después de unas horas.", "Sientes molestia en el coxis al estar sentado."],
-     extra="Como todo memory foam, pierde firmeza con el uso. Conviene renovarlo con el tiempo.",
-     link=f"También viene en el {KIT_ESC}.")),
+     extra="Como todo memory foam, pierde firmeza con el uso. Conviene renovarlo con el tiempo.")),
  "gid://shopify/Product/15394572632379": dict(  # Lámpara
    bajada="Luz regulable para trabajar sin cansar la vista.",
    html=desc("Lámpara LED de escritorio con temperatura de color regulable. Sin parpadeo ni deslumbramiento.",
@@ -44,8 +41,7 @@ P = {
  "gid://shopify/Product/15394572697915": dict(  # Organizador cables
    bajada="Cables ordenados y enchufes a mano.",
    html=desc("Sistema para ordenar cables más una mini regleta de escritorio. Tu setup queda limpio y sin enredos.",
-     ["Tienes cables a la vista en el escritorio.", "Necesitas enchufes más cerca."],
-     link=f"También viene en el {KIT_ESC}.")),
+     ["Tienes cables a la vista en el escritorio.", "Necesitas enchufes más cerca."])),
  "gid://shopify/Product/15394572730683": dict(  # Corrector postura
    bajada="Un recordatorio para mantener los hombros en su lugar.",
    html=desc("Banda ajustable que te recuerda mantener los hombros en una postura neutra durante el día.",
@@ -90,11 +86,6 @@ P = {
    html=desc("Las dos piezas base para trabajar sentado con buena postura, más una guía impresa para medir y ajustar tu puesto desde el primer día.",
      ["Trabajas sentado muchas horas.", "No sabes por dónde empezar. Es nuestra recomendación base."],
      incluye=['<a href="/products/soporte-lumbar-ajustable">Soporte Lumbar Ajustable</a>', '<a href="/products/reposapies-ergonomico-inclinable">Reposapiés Ergonómico Inclinable</a>', "Guía de medición impresa"])),
- "gid://shopify/Product/15394591965499": dict(  # Kit Escritorio
-   bajada="Pantalla a la altura correcta, asiento cómodo y escritorio ordenado.",
-   html=desc("Tres piezas que cambian cómo se siente trabajar sentado: pantalla a la altura de los ojos, un asiento que reparte el peso y cables en orden.",
-     ["Estás armando tu escritorio de teletrabajo.", "Trabajas con notebook."],
-     incluye=['<a href="/products/soporte-para-laptop-con-brazo-ajustable">Soporte para Laptop con Brazo Ajustable</a>', '<a href="/products/cojin-de-asiento-anatomico">Cojín de Asiento Anatómico</a>', '<a href="/products/organizador-de-cables-mini-regleta">Organizador de Cables + Mini Regleta</a>'])),
  "gid://shopify/Product/15394592096571": dict(  # Kit Recuperación
    bajada="Rodillo, bandas y magnesio: tu rutina post-entreno completa.",
    html=desc("Una rutina de recuperación completa: automasaje y movilidad con el rodillo y las bandas, y magnesio tópico para cerrar el día.",

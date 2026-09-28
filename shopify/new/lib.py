@@ -14,7 +14,7 @@ def load(f):
 def dump(d, f):
     open(f,"w").write(json.dumps(d, ensure_ascii=False, separators=(",",":")))
 
-INK="#161512"; PAPER="#F0EEE9"; SAND="#E4DFD3"; CARD="#F8F6F2"; LINE="#D6D2C6"; MUTED="#57554C"; ACCENT="#B6462B"; ACCENT_LIGHT="#D98B6E"; DARK="#141311"
+INK="#161512"; PAPER="#F0EEE9"; SAND="#E4DFD3"; CARD="#F8F6F2"; LINE="#D6D2C6"; MUTED="#57554C"; ACCENT="#E0451C"; ACCENT_LIGHT="#D98B6E"; DARK="#141311"
 
 def _blocks(children):
     b={}; order=[]
