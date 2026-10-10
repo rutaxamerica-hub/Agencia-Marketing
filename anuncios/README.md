@@ -5,24 +5,26 @@ anuncios A–E: gancho con dolor → dato con fuente → "Sella…" + Panel Sell
 
 | Video | Dolor | Duración |
 |---|---|---|
-| `videos/Anuncio_F_-_V1_crecer_negocio.mp4` | Querer hacer crecer el negocio | 29,6 s |
-| `videos/Anuncio_G_-_V1_marketing_a_mano.mp4` | Administrar todo el marketing a mano | 33,7 s |
+| `videos/Anuncio_F_-_V2_crecer_negocio.mp4` | Querer hacer crecer el negocio | 21,8 s |
+| `videos/Anuncio_G_-_V2_marketing_a_mano.mp4` | Administrar todo el marketing a mano | 23,2 s |
+
+V2: voz chilena, ganchos con el dolor en la primera frase y escenas rediseñadas (personaje del dueño de
+pyme, elementos grandes, transiciones). La V1 quedó en el historial de git.
 
 ## Guiones
 
 **F — Crecer**
-> ¿Quieres hacer crecer tu negocio? Las ganas no te faltan… te falta un plan.
-> El 84% de las pymes parte el año con planes para crecer. Pero las que tienen un plan de
-> marketing tienen 3 veces más probabilidades de que les funcione.
-> Sella arma tu plan de crecimiento y lo ejecuta: anuncios, web y seguimiento de clientes, paso a paso.
+> ¿Quieres hacer crecer tu negocio… pero cada mes vendes lo mismo? No es falta de ganas. Es falta de un plan.
+> El 84% de las pymes parte el año queriendo crecer, pero las que tienen un plan de marketing tienen
+> tres veces más probabilidades de que les funcione.
+> En Sella armamos tu plan y lo ejecutamos: anuncios, web y seguimiento de clientes.
 > Entra a nuestra web y agenda una llamada de 30 minutos. Revisamos tu caso.
 
 **G — Marketing a mano**
 > ¿Sigues haciendo todo tu marketing a mano? Publicar, responder mensajes, ajustar anuncios,
-> anotar clientes en un Excel… y mañana, otra vez.
-> El 81% de los dueños de pyme dice estar agotado. Y el 70% le dedica menos de 5 horas a la semana a su marketing.
-> Sella se encarga de todo eso por ti: publicaciones, anuncios y seguimiento de clientes, en un solo panel.
-> Tú solo revisas los resultados.
+> anotar clientes en un Excel… y mañana, todo de nuevo.
+> El 81% de los dueños de pyme dice estar agotado. Y el 70% le dedica menos de cinco horas a la semana a su marketing.
+> Sella se encarga de todo eso por ti, en un solo panel. Tú solo revisas los resultados.
 > Entra a nuestra web y agenda una llamada de 30 minutos. Revisamos tu caso.
 
 ## Fuentes de los datos
@@ -35,18 +37,19 @@ anuncios A–E: gancho con dolor → dato con fuente → "Sella…" + Panel Sell
 - **70%** de los dueños dedica menos de 5 horas a la semana a su marketing — Fiverr Small Business Survey,
   mayo 2025 (casi 6.000 negocios en 25 países).
 
-Los paneles marcados "EJEMPLO ILUSTRATIVO" (12 publicaciones, 3 anuncios, etc.) son ilustrativos,
-igual que en los anuncios A–E.
+Las cifras de ventas del gancho de F ($3,2M por mes) y los paneles marcados "EJEMPLO ILUSTRATIVO"
+son ilustrativos, igual que en los anuncios A–E.
 
 ## Voz
 
-- Cuerpo de cada anuncio: ElevenLabs, voz **Javier Riveros** (`HtFUbkhkGhVk2L0Z9I2L`), modelo `eleven_v3`
-  con etiquetas de emoción al inicio (`[curious]`, `[tired] … [sighs]`). Tomas en `sella-anuncios/locucion/`.
-- CTA final: el mismo clip de los anuncios A–E (`locucion/cta-original.wav`), que es idéntico en los cinco.
-- Volumen igualado a los originales: −14,9 LUFS, pico −1,7 dBFS.
+- ElevenLabs, voz chilena **Cristian Cornejo — Español Chileno Fluido** (`ClNifCEVq1smkl4M3aTk`),
+  modelo `eleven_multilingual_v2` (el que mejor conserva el acento). Tomas en `sella-anuncios/locucion/`.
+- F usa la toma 4 completa. G usa el gancho de la toma 3 (entonado como pregunta) y el resto de la toma 1.
+- Volumen igualado a los anuncios A–E: −14,8 LUFS, pico −1,5 dBFS (`scripts/armar_locucion.py`).
 
-Para cambiar la voz: reemplaza `locucion/F-toma2.mp3` / `G-toma1.mp3` (y sus `.palabras.json`, tiempos por
-palabra con whisper), ajusta los cortes en `scripts/armar_locucion.py` y vuelve a renderizar.
+Para cambiar la voz: reemplaza las tomas en `locucion/` (y sus `.palabras.json`, tiempos por palabra con
+whisper), ajusta los tramos en `scripts/armar_locucion.py`, los tiempos `T` de `src/AnuncioF.tsx` /
+`src/AnuncioG.tsx` y vuelve a renderizar.
 
 ## Volver a renderizar
 
@@ -55,10 +58,11 @@ cd anuncios/sella-anuncios
 npm i
 python3 scripts/armar_locucion.py          # sólo si cambias la locución
 npx remotion studio                         # vista previa
-npx remotion render AnuncioF-Crecer ../videos/Anuncio_F_-_V1_crecer_negocio.mp4
-npx remotion render AnuncioG-MarketingAMano ../videos/Anuncio_G_-_V1_marketing_a_mano.mp4
+npx remotion render AnuncioF-Crecer ../videos/Anuncio_F_-_V2_crecer_negocio.mp4
+npx remotion render AnuncioG-MarketingAMano ../videos/Anuncio_G_-_V2_marketing_a_mano.mp4
 ```
 
 Código: `src/AnuncioF.tsx` y `src/AnuncioG.tsx` (escenas), `src/Cta.tsx` (calendario + botón),
-`src/Captions.tsx` (subtítulos palabra por palabra), `src/ui.tsx` / `src/theme.ts` (estilo Sella).
+`src/Captions.tsx` (subtítulos palabra por palabra), `src/Owner.tsx` (personaje), `src/fx.tsx`
+(notificaciones, sellos, confeti, partículas), `src/ui.tsx` / `src/theme.ts` (estilo Sella).
 La fuente Poppins va incluida en `public/fonts` (licencia OFL).

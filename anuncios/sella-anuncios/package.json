@@ -26,7 +26,7 @@
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc",
-    "render:f": "remotion render AnuncioF-Crecer ../videos/Anuncio_F_-_V1_crecer_negocio.mp4",
-    "render:g": "remotion render AnuncioG-MarketingAMano ../videos/Anuncio_G_-_V1_marketing_a_mano.mp4"
+    "render:f": "remotion render AnuncioF-Crecer ../videos/Anuncio_F_-_V2_crecer_negocio.mp4",
+    "render:g": "remotion render AnuncioG-MarketingAMano ../videos/Anuncio_G_-_V2_marketing_a_mano.mp4"
   }
 }

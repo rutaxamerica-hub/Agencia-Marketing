@@ -1,421 +1,395 @@
 {
- "duration": 33.7,
- "ctaStart": 27.75,
+ "duration": 23.196,
  "words": [
   {
    "text": "¿SIGUES",
    "start": 0.0,
-   "end": 0.44
+   "end": 0.32
   },
   {
    "text": "HACIENDO",
-   "start": 0.44,
-   "end": 0.74
+   "start": 0.32,
+   "end": 0.56
   },
   {
    "text": "TODO",
-   "start": 0.74,
-   "end": 1.16
+   "start": 0.56,
+   "end": 0.8
   },
   {
    "text": "TU",
-   "start": 1.16,
-   "end": 1.36
+   "start": 0.8,
+   "end": 0.96
   },
   {
    "text": "MARKETING",
-   "start": 1.36,
-   "end": 1.74
+   "start": 0.96,
+   "end": 1.22
   },
   {
    "text": "A",
-   "start": 1.74,
-   "end": 2.14
+   "start": 1.22,
+   "end": 1.48
   },
   {
    "text": "MANO?",
-   "start": 2.14,
-   "end": 2.44
+   "start": 1.48,
+   "end": 1.64
   },
   {
    "text": "PUBLICAR,",
-   "start": 2.9,
-   "end": 3.54
+   "start": 2.11,
+   "end": 2.49
   },
   {
    "text": "RESPONDER",
-   "start": 3.8,
-   "end": 4.22
+   "start": 2.55,
+   "end": 2.83
   },
   {
    "text": "MENSAJES,",
-   "start": 4.22,
-   "end": 4.84
+   "start": 2.83,
+   "end": 3.27
   },
   {
    "text": "AJUSTAR",
-   "start": 5.12,
-   "end": 5.58
+   "start": 3.37,
+   "end": 3.69
   },
   {
    "text": "ANUNCIOS,",
-   "start": 5.58,
-   "end": 6.18
+   "start": 3.69,
+   "end": 4.13
   },
   {
    "text": "ANOTAR",
-   "start": 6.28,
-   "end": 6.6
+   "start": 4.17,
+   "end": 4.45
   },
   {
    "text": "CLIENTES",
-   "start": 6.6,
-   "end": 7.1
+   "start": 4.45,
+   "end": 4.83
   },
   {
    "text": "EN",
-   "start": 7.1,
-   "end": 7.2
+   "start": 4.83,
+   "end": 4.93
   },
   {
    "text": "UN",
-   "start": 7.2,
-   "end": 7.34
+   "start": 4.93,
+   "end": 5.03
   },
   {
    "text": "EXCEL",
-   "start": 7.34,
-   "end": 7.66
+   "start": 5.03,
+   "end": 5.23
   },
   {
    "text": "Y",
-   "start": 7.66,
-   "end": 8.14
+   "start": 5.23,
+   "end": 5.55
   },
   {
-   "text": "MAÑANA,",
-   "start": 8.14,
-   "end": 8.54
-  },
-  {
-   "text": "OTRA",
-   "start": 8.84,
-   "end": 9.12
-  },
-  {
-   "text": "VEZ.",
-   "start": 9.12,
-   "end": 9.3
-  },
-  {
-   "text": "EL",
-   "start": 9.78,
-   "end": 9.86
-  },
-  {
-   "text": "81%",
-   "start": 9.86,
-   "end": 10.62
-  },
-  {
-   "text": "DE",
-   "start": 10.62,
-   "end": 10.96
-  },
-  {
-   "text": "LOS",
-   "start": 10.96,
-   "end": 11.06
-  },
-  {
-   "text": "DUEÑOS",
-   "start": 11.06,
-   "end": 11.4
-  },
-  {
-   "text": "DE",
-   "start": 11.4,
-   "end": 11.52
-  },
-  {
-   "text": "PYME",
-   "start": 11.52,
-   "end": 12.0
-  },
-  {
-   "text": "DICE",
-   "start": 12.0,
-   "end": 12.36
-  },
-  {
-   "text": "ESTAR",
-   "start": 12.36,
-   "end": 12.7
-  },
-  {
-   "text": "AGOTADO,",
-   "start": 12.7,
-   "end": 13.44
-  },
-  {
-   "text": "Y",
-   "start": 13.56,
-   "end": 13.6
-  },
-  {
-   "text": "EL",
-   "start": 13.6,
-   "end": 13.72
-  },
-  {
-   "text": "70%",
-   "start": 13.72,
-   "end": 14.82
-  },
-  {
-   "text": "LE",
-   "start": 14.82,
-   "end": 15.0
-  },
-  {
-   "text": "DEDICA",
-   "start": 15.0,
-   "end": 15.38
-  },
-  {
-   "text": "MENOS",
-   "start": 15.38,
-   "end": 15.7
-  },
-  {
-   "text": "DE",
-   "start": 15.7,
-   "end": 15.92
-  },
-  {
-   "text": "5",
-   "start": 15.92,
-   "end": 16.32
-  },
-  {
-   "text": "HORAS",
-   "start": 16.32,
-   "end": 16.66
-  },
-  {
-   "text": "A",
-   "start": 16.66,
-   "end": 16.86
-  },
-  {
-   "text": "LA",
-   "start": 16.86,
-   "end": 16.92
-  },
-  {
-   "text": "SEMANA",
-   "start": 16.92,
-   "end": 17.32
-  },
-  {
-   "text": "A",
-   "start": 17.32,
-   "end": 17.56
-  },
-  {
-   "text": "SU",
-   "start": 17.56,
-   "end": 17.7
-  },
-  {
-   "text": "MARKETING.",
-   "start": 17.7,
-   "end": 18.06
-  },
-  {
-   "text": "SELLA",
-   "start": 18.69,
-   "end": 19.05
-  },
-  {
-   "text": "SE",
-   "start": 19.05,
-   "end": 19.25
-  },
-  {
-   "text": "ENCARGA",
-   "start": 19.25,
-   "end": 19.63
-  },
-  {
-   "text": "DE",
-   "start": 19.63,
-   "end": 19.75
+   "text": "MAÑANA",
+   "start": 5.55,
+   "end": 5.79
   },
   {
    "text": "TODO",
-   "start": 19.75,
-   "end": 19.99
-  },
-  {
-   "text": "ESO",
-   "start": 19.99,
-   "end": 20.25
-  },
-  {
-   "text": "POR",
-   "start": 20.25,
-   "end": 20.51
-  },
-  {
-   "text": "TI,",
-   "start": 20.51,
-   "end": 20.67
-  },
-  {
-   "text": "PUBLICACIONES,",
-   "start": 20.81,
-   "end": 21.45
-  },
-  {
-   "text": "ANUNCIOS",
-   "start": 21.77,
-   "end": 22.39
-  },
-  {
-   "text": "Y",
-   "start": 22.39,
-   "end": 22.53
-  },
-  {
-   "text": "SEGUIMIENTO",
-   "start": 22.53,
-   "end": 23.05
+   "start": 5.79,
+   "end": 6.19
   },
   {
    "text": "DE",
-   "start": 23.05,
-   "end": 23.21
+   "start": 6.19,
+   "end": 6.35
   },
   {
-   "text": "CLIENTES",
-   "start": 23.21,
-   "end": 23.85
+   "text": "NUEVO.",
+   "start": 6.35,
+   "end": 6.55
   },
   {
-   "text": "EN",
-   "start": 23.85,
-   "end": 24.03
+   "text": "EL",
+   "start": 7.04,
+   "end": 7.1
   },
   {
-   "text": "UN",
-   "start": 24.03,
-   "end": 24.21
+   "text": "81%",
+   "start": 7.1,
+   "end": 7.9
   },
   {
-   "text": "SOLO",
-   "start": 24.21,
-   "end": 24.53
-  },
-  {
-   "text": "PANEL.",
-   "start": 24.53,
-   "end": 24.89
-  },
-  {
-   "text": "TÚ",
-   "start": 24.89,
-   "end": 25.13
-  },
-  {
-   "text": "SOLO",
-   "start": 25.23,
-   "end": 25.53
-  },
-  {
-   "text": "REVISAS",
-   "start": 25.53,
-   "end": 26.13
+   "text": "DE",
+   "start": 7.9,
+   "end": 8.2
   },
   {
    "text": "LOS",
-   "start": 26.13,
-   "end": 26.27
+   "start": 8.2,
+   "end": 8.3
   },
   {
-   "text": "RESULTADOS.",
-   "start": 26.27,
-   "end": 26.69
-  },
-  {
-   "text": "ENTRA",
-   "start": 28.36,
-   "end": 28.92
-  },
-  {
-   "text": "A",
-   "start": 28.92,
-   "end": 28.98
-  },
-  {
-   "text": "NUESTRA",
-   "start": 28.98,
-   "end": 29.16
-  },
-  {
-   "text": "WEB",
-   "start": 29.16,
-   "end": 29.44
-  },
-  {
-   "text": "Y",
-   "start": 29.44,
-   "end": 29.64
-  },
-  {
-   "text": "AGENDA",
-   "start": 29.64,
-   "end": 29.98
-  },
-  {
-   "text": "UNA",
-   "start": 29.98,
-   "end": 30.14
-  },
-  {
-   "text": "LLAMADA",
-   "start": 30.14,
-   "end": 30.46
+   "text": "DUEÑOS",
+   "start": 8.3,
+   "end": 8.58
   },
   {
    "text": "DE",
-   "start": 30.46,
-   "end": 30.64
+   "start": 8.58,
+   "end": 8.66
+  },
+  {
+   "text": "PYME",
+   "start": 8.66,
+   "end": 8.92
+  },
+  {
+   "text": "DICE",
+   "start": 8.92,
+   "end": 9.22
+  },
+  {
+   "text": "ESTAR",
+   "start": 9.22,
+   "end": 9.52
+  },
+  {
+   "text": "AGOTADO",
+   "start": 9.52,
+   "end": 10.0
+  },
+  {
+   "text": "Y",
+   "start": 10.0,
+   "end": 10.14
+  },
+  {
+   "text": "EL",
+   "start": 10.14,
+   "end": 10.22
+  },
+  {
+   "text": "70%",
+   "start": 10.22,
+   "end": 10.86
+  },
+  {
+   "text": "LE",
+   "start": 10.86,
+   "end": 11.18
+  },
+  {
+   "text": "DEDICA",
+   "start": 11.18,
+   "end": 11.46
+  },
+  {
+   "text": "MENOS",
+   "start": 11.46,
+   "end": 11.64
+  },
+  {
+   "text": "DE",
+   "start": 11.64,
+   "end": 11.82
+  },
+  {
+   "text": "5",
+   "start": 11.82,
+   "end": 12.06
+  },
+  {
+   "text": "HORAS",
+   "start": 12.06,
+   "end": 12.26
+  },
+  {
+   "text": "A",
+   "start": 12.26,
+   "end": 12.4
+  },
+  {
+   "text": "LA",
+   "start": 12.4,
+   "end": 12.44
+  },
+  {
+   "text": "SEMANA",
+   "start": 12.44,
+   "end": 12.7
+  },
+  {
+   "text": "A",
+   "start": 12.7,
+   "end": 12.84
+  },
+  {
+   "text": "SU",
+   "start": 12.84,
+   "end": 12.92
+  },
+  {
+   "text": "MARKETING.",
+   "start": 12.92,
+   "end": 13.24
+  },
+  {
+   "text": "SELLA",
+   "start": 13.84,
+   "end": 14.08
+  },
+  {
+   "text": "SE",
+   "start": 14.08,
+   "end": 14.2
+  },
+  {
+   "text": "ENCARGA",
+   "start": 14.2,
+   "end": 14.54
+  },
+  {
+   "text": "DE",
+   "start": 14.54,
+   "end": 14.64
+  },
+  {
+   "text": "TODO",
+   "start": 14.64,
+   "end": 14.78
+  },
+  {
+   "text": "ESO",
+   "start": 14.78,
+   "end": 14.98
+  },
+  {
+   "text": "POR",
+   "start": 14.98,
+   "end": 15.18
+  },
+  {
+   "text": "TI",
+   "start": 15.18,
+   "end": 15.32
+  },
+  {
+   "text": "EN",
+   "start": 15.32,
+   "end": 15.58
+  },
+  {
+   "text": "UN",
+   "start": 15.58,
+   "end": 15.7
+  },
+  {
+   "text": "SOLO",
+   "start": 15.7,
+   "end": 15.86
+  },
+  {
+   "text": "PANEL.",
+   "start": 15.86,
+   "end": 16.1
+  },
+  {
+   "text": "TÚ",
+   "start": 16.47,
+   "end": 16.55
+  },
+  {
+   "text": "SOLO",
+   "start": 16.55,
+   "end": 16.71
+  },
+  {
+   "text": "REVISAS",
+   "start": 16.71,
+   "end": 17.05
+  },
+  {
+   "text": "LOS",
+   "start": 17.05,
+   "end": 17.19
+  },
+  {
+   "text": "RESULTADOS.",
+   "start": 17.19,
+   "end": 17.63
+  },
+  {
+   "text": "ENTRA",
+   "start": 18.73,
+   "end": 18.99
+  },
+  {
+   "text": "A",
+   "start": 18.99,
+   "end": 19.07
+  },
+  {
+   "text": "NUESTRA",
+   "start": 19.07,
+   "end": 19.19
+  },
+  {
+   "text": "WEB",
+   "start": 19.19,
+   "end": 19.53
+  },
+  {
+   "text": "Y",
+   "start": 19.53,
+   "end": 19.73
+  },
+  {
+   "text": "AGENDA",
+   "start": 19.73,
+   "end": 20.05
+  },
+  {
+   "text": "UNA",
+   "start": 20.05,
+   "end": 20.19
+  },
+  {
+   "text": "LLAMADA",
+   "start": 20.19,
+   "end": 20.55
+  },
+  {
+   "text": "DE",
+   "start": 20.55,
+   "end": 20.69
   },
   {
    "text": "30",
-   "start": 30.64,
-   "end": 31.0
+   "start": 20.69,
+   "end": 20.93
   },
   {
    "text": "MINUTOS.",
-   "start": 31.0,
-   "end": 31.42
+   "start": 20.93,
+   "end": 21.31
   },
   {
    "text": "REVISAMOS",
-   "start": 31.88,
-   "end": 32.38
+   "start": 21.59,
+   "end": 22.01
   },
   {
    "text": "TU",
-   "start": 32.38,
-   "end": 32.58
+   "start": 22.01,
+   "end": 22.17
   },
   {
    "text": "CASO.",
-   "start": 32.58,
-   "end": 32.82
+   "start": 22.17,
+   "end": 22.35
   }
  ]
 }

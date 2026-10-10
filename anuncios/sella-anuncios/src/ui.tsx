@@ -24,18 +24,31 @@ export const Logo: React.FC = () => (
   </div>
 );
 
-/** Ventana de escena: aparece y desaparece con un fundido corto. Los hijos usan el tiempo global. */
+/**
+ * Ventana de escena: entra subiendo y enfocándose, sale hacia arriba desenfocada,
+ * con un zoom lento mientras está en pantalla. Los hijos usan el tiempo global.
+ */
 export const Scene: React.FC<{ from: number; to: number; children: React.ReactNode }> = ({
   from,
   to,
   children,
 }) => {
   const t = useT();
-  if (t < from || t > to + 0.3) return null;
-  const inP = from <= 0 ? 1 : ramp(t, from, from + 0.22);
-  const outP = ramp(t, to, to + 0.25, Easing.in(Easing.quad));
+  if (t < from || t > to + 0.28) return null;
+  const inP = from <= 0 ? 1 : ramp(t, from, from + 0.28);
+  const outP = ramp(t, to, to + 0.26, Easing.in(Easing.cubic));
+  const zoom = 1 + 0.035 * ramp(t, from, to + 0.3, Easing.linear);
   return (
-    <AbsoluteFill style={{ opacity: inP * (1 - outP), scale: String(1 - 0.03 * outP) }}>{children}</AbsoluteFill>
+    <AbsoluteFill
+      style={{
+        opacity: inP * (1 - outP),
+        translate: `0px ${(1 - inP) * 70 - outP * 90}px`,
+        scale: String(zoom),
+        filter: `blur(${(1 - inP) * 10 + outP * 12}px)`,
+      }}
+    >
+      {children}
+    </AbsoluteFill>
   );
 };
 

@@ -6,20 +6,23 @@ import { ArrowRight, Check, Cursor } from "./icons";
 const DAYS = ["L", "M", "M", "J", "V", "S", "D"];
 
 /** Calendario + botón "Agendar llamada", igual que el cierre de los anuncios A–E. */
-export const CtaScene: React.FC<{ from: number; cta: number }> = ({ from, cta }) => {
+export const CtaScene: React.FC<{ from: number; entra: number; agenda: number; llamada: number; revisamos: number }> = ({
+  from,
+  entra,
+  agenda,
+  llamada,
+  revisamos,
+}) => {
   const t = useT();
-  const entra = cta + 0.61;
-  const agenda = cta + 1.89;
-  const revisamos = cta + 4.13;
   const card = pop(t, from);
-  const btn = pop(t, cta + 2.1);
+  const btn = pop(t, llamada - 0.15);
   const press = interpolate(t, [revisamos - 0.05, revisamos + 0.05, revisamos + 0.25], [1, 0.95, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const cursorP = ramp(t, cta + 3.1, revisamos - 0.08);
+  const cursorP = ramp(t, revisamos - 0.9, revisamos - 0.08);
   const ripple = ramp(t, revisamos, revisamos + 0.6);
-  const shine = ((t - (cta + 2.4)) % 2.2) / 2.2;
+  const shine = ((t - (llamada + 0.2)) % 2.2) / 2.2;
 
   return (
     <>
@@ -80,7 +83,7 @@ export const CtaScene: React.FC<{ from: number; cta: number }> = ({ from, cta })
         </div>
         <div style={{ display: "flex", gap: 22, marginTop: 34 }}>
           {["09:30", "11:00", "15:30"].map((s, i) => {
-            const p = pop(t, cta + 1.0 + i * 0.08, 30, 15);
+            const p = pop(t, entra + 0.35 + i * 0.08, 30, 15);
             const sel = s === "11:00" ? pop(t, agenda, 30, 12) : 0;
             return (
               <div
@@ -132,7 +135,7 @@ export const CtaScene: React.FC<{ from: number; cta: number }> = ({ from, cta })
       >
         <span style={{ fontFamily, fontWeight: 800, fontSize: 60, color: C.ink, letterSpacing: -1 }}>AGENDAR LLAMADA</span>
         <ArrowRight size={60} color={C.ink} stroke={3} />
-        {t > cta + 2.4 && (
+        {t > llamada + 0.2 && (
           <div
             style={{
               position: "absolute",
