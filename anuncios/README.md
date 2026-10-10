@@ -5,23 +5,24 @@ anuncios A–E: gancho con dolor → dato con fuente → "Sella…" + Panel Sell
 
 | Video | Dolor | Duración |
 |---|---|---|
-| `videos/Anuncio_F_-_V2_crecer_negocio.mp4` | Querer hacer crecer el negocio | 21,8 s |
-| `videos/Anuncio_G_-_V2_marketing_a_mano.mp4` | Administrar todo el marketing a mano | 23,2 s |
+| `videos/Anuncio_F_-_V3_crecer_negocio.mp4` | Querer hacer crecer el negocio | 27,1 s |
+| `videos/Anuncio_G_-_V3_marketing_a_mano.mp4` | Administrar todo el marketing a mano | 28,9 s |
 
-V2: voz chilena, ganchos con el dolor en la primera frase y escenas rediseñadas (personaje del dueño de
-pyme, elementos grandes, transiciones). La V1 quedó en el historial de git.
+V3: misma voz chilena y mismas escenas de la V2, pero con la locución más pausada y natural (ritmo parecido
+a A–E), respiros en comas y puntos, un timbre más suave y ganchos nuevos con más intención. V1 y V2 quedaron
+en el historial de git.
 
 ## Guiones
 
 **F — Crecer**
-> ¿Quieres hacer crecer tu negocio… pero cada mes vendes lo mismo? No es falta de ganas. Es falta de un plan.
+> ¿Quieres hacer crecer tu negocio? Pero… cada mes vendes lo mismo. No es falta de ganas. Es falta de un plan.
 > El 84% de las pymes parte el año queriendo crecer, pero las que tienen un plan de marketing tienen
 > tres veces más probabilidades de que les funcione.
 > En Sella armamos tu plan y lo ejecutamos: anuncios, web y seguimiento de clientes.
 > Entra a nuestra web y agenda una llamada de 30 minutos. Revisamos tu caso.
 
 **G — Marketing a mano**
-> ¿Sigues haciendo todo tu marketing a mano? Publicar, responder mensajes, ajustar anuncios,
+> ¿Sigues haciendo todo tu marketing… a mano? Publicar, responder mensajes, ajustar anuncios,
 > anotar clientes en un Excel… y mañana, todo de nuevo.
 > El 81% de los dueños de pyme dice estar agotado. Y el 70% le dedica menos de cinco horas a la semana a su marketing.
 > Sella se encarga de todo eso por ti, en un solo panel. Tú solo revisas los resultados.
@@ -44,22 +45,30 @@ son ilustrativos, igual que en los anuncios A–E.
 
 - ElevenLabs, voz chilena **Cristian Cornejo — Español Chileno Fluido** (`ClNifCEVq1smkl4M3aTk`),
   modelo `eleven_multilingual_v2` (el que mejor conserva el acento). Tomas en `sella-anuncios/locucion/`.
-- F usa la toma 4 completa. G usa el gancho de la toma 3 (entonado como pregunta) y el resto de la toma 1.
-- Volumen igualado a los anuncios A–E: −14,8 LUFS, pico −1,5 dBFS (`scripts/armar_locucion.py`).
+- Ganchos regenerados (`F-cristian-gancho2`, `G-cristian-gancho2`): F hace una pausa después de
+  "¿…tu negocio?" y G antes de "a mano", para que el dolor se escuche claro. El resto sale de
+  `F-cristian-toma4` y `G-cristian-toma1`.
+- `scripts/armar_locucion.py` arma la locución final:
+  - baja la velocidad (gancho al 88 %, resto al 85 %, sin cambiar el timbre);
+  - agrega respiros en comas y puntos, y pausas entre bloques;
+  - ecualiza (menos nasal y menos siseo);
+  - nivela a −14,9 LUFS, pico −1,5 dBTP, igual que A–E;
+  - retranscribe con whisper para los subtítulos.
+- Las escenas se sincronizan solas: `src/timing.ts` busca en `src/data/voz-*.json` el momento de cada palabra.
 
 Para cambiar la voz: reemplaza las tomas en `locucion/` (y sus `.palabras.json`, tiempos por palabra con
-whisper), ajusta los tramos en `scripts/armar_locucion.py`, los tiempos `T` de `src/AnuncioF.tsx` /
-`src/AnuncioG.tsx` y vuelve a renderizar.
+whisper), ajusta los tramos en `scripts/armar_locucion.py`, corre el script y vuelve a renderizar (si cambia el
+texto, revisa las palabras que buscan `T` y `S` en `src/AnuncioF.tsx` / `src/AnuncioG.tsx`).
 
 ## Volver a renderizar
 
 ```bash
 cd anuncios/sella-anuncios
 npm i
-python3 scripts/armar_locucion.py          # sólo si cambias la locución
+python3 scripts/armar_locucion.py          # sólo si cambias la locución (requiere ffmpeg y faster-whisper)
 npx remotion studio                         # vista previa
-npx remotion render AnuncioF-Crecer ../videos/Anuncio_F_-_V2_crecer_negocio.mp4
-npx remotion render AnuncioG-MarketingAMano ../videos/Anuncio_G_-_V2_marketing_a_mano.mp4
+npm run render:f
+npm run render:g
 ```
 
 Código: `src/AnuncioF.tsx` y `src/AnuncioG.tsx` (escenas), `src/Cta.tsx` (calendario + botón),

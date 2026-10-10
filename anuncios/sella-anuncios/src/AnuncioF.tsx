@@ -5,36 +5,44 @@ import voz from "./data/voz-F.json";
 import { C, ease, fontFamily, pop, popStyle, ramp, useT } from "./theme";
 import { Background, Card, Chip, countUp, FooterPill, Label, Logo, PanelHeader, Pill, Scene, Source } from "./ui";
 import { Captions } from "./Captions";
+import { wordAt } from "./timing";
 import { CtaScene } from "./Cta";
 import { Confetti, Particles, Stamp } from "./fx";
 import { Owner } from "./Owner";
 import { Browser, Check, Flag, Megaphone, Users, XMark } from "./icons";
 
-// Momentos clave de la locución (segundos), de voz-F.json.
+// Momentos clave, leídos de las palabras de la locución (voz-F.json).
+const at = (text: string, nth = 0) => wordAt(voz.words, text, nth);
 const T = {
-  vendes: 2.04,
-  ganas: 4.07,
-  falta: 4.57,
-  plan: 5.03,
-  pct84: 5.84,
-  crecer: 8.34,
-  pero: 8.84,
-  planMk: 9.5,
-  tres: 10.5,
-  funcione: 11.98,
-  sella: 12.98,
-  armamos: 13.28,
-  anuncios: 14.8,
-  web: 15.32,
-  seguimiento: 15.68,
-  clientes: 16.2,
-  entra: 17.64,
-  agenda: 18.6,
-  llamada: 19.02,
-  revisamos: 20.3,
+  vendes: at("VENDES"),
+  ganas: at("GANAS"),
+  falta: at("FALTA", 1),
+  plan: at("PLAN"),
+  pct84: at("84%"),
+  pero: at("PERO", 1),
+  planMk: at("PLAN", 1),
+  tres: at("3"),
+  funcione: at("FUNCIONE"),
+  sella: at("SELLA"),
+  armamos: at("ARMAMOS"),
+  anuncios: at("ANUNCIOS"),
+  web: at("WEB"),
+  seguimiento: at("SEGUIMIENTO"),
+  clientes: at("CLIENTES"),
+  entra: at("ENTRA"),
+  agenda: at("AGENDA"),
+  llamada: at("LLAMADA"),
+  revisamos: at("REVISAMOS"),
 };
 
-const S = { hook: 3.15, ganas: 5.65, pct: 8.75, tres: 12.75, plan: 17.25 };
+// Cambios de escena, un poco antes de la frase que abre cada una.
+const S = {
+  hook: at("NO") - 0.2,
+  ganas: at("EL") - 0.15,
+  pct: T.pero - 0.12,
+  tres: at("EN") - 0.15,
+  plan: T.entra - 0.4,
+};
 
 const MONTHS = ["ENE", "FEB", "MAR", "ABR"];
 
@@ -192,12 +200,12 @@ const Ring84: React.FC = () => {
           <span style={{ fontSize: 110, color: C.green, marginTop: 80 }}>%</span>
         </div>
       </div>
-      <div style={{ position: "absolute", top: 1000, left: 40, right: 40, textAlign: "center", fontFamily, fontWeight: 800, fontSize: 58, lineHeight: 1.15, color: C.white, ...popStyle(pop(t, 6.6), 24) }}>
+      <div style={{ position: "absolute", top: 1000, left: 40, right: 40, textAlign: "center", fontFamily, fontWeight: 800, fontSize: 58, lineHeight: 1.15, color: C.white, ...popStyle(pop(t, T.pct84 + 0.7), 24) }}>
         DE LAS PYMES PARTE EL AÑO
         <br />
         <span style={{ color: C.green }}>QUERIENDO CRECER</span>
       </div>
-      <Source top={1170} at={7.0}>
+      <Source top={1170} at={T.pct84 + 1.1}>
         Fuente: Novuna Business Finance, 2026
       </Source>
     </>
@@ -213,7 +221,7 @@ const ThreeX: React.FC = () => {
   const rightH = 150 * one + 320 * three;
   const party = pop(t, T.tres + 0.25, 30, 12);
   return (
-    <Card at={8.7} style={{ top: 330, height: 930 }}>
+    <Card at={S.pct - 0.05} style={{ top: 330, height: 930 }}>
       <div style={{ padding: "44px 50px 0" }}>
         <Label style={{ fontSize: 32, lineHeight: 1.35 }}>
           PROBABILIDAD DE QUE
@@ -292,7 +300,7 @@ const Stairs: React.FC = () => {
   const win = t > T.clientes;
   return (
     <>
-      <Card at={12.75} glow style={{ top: 300, height: 930 }}>
+      <Card at={S.tres} glow style={{ top: 300, height: 930 }}>
         <PanelHeader />
         <div style={{ padding: "30px 44px 0" }}>
           <Label style={{ fontSize: 32 }}>TU PLAN DE CRECIMIENTO</Label>

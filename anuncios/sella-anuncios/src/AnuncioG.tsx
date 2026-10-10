@@ -5,42 +5,45 @@ import voz from "./data/voz-G.json";
 import { C, ease, fontFamily, pop, popStyle, ramp, useT } from "./theme";
 import { Background, Card, Chip, countUp, FooterPill, Label, Logo, PanelHeader, Scene } from "./ui";
 import { Captions } from "./Captions";
+import { wordAt } from "./timing";
 import { CtaScene } from "./Cta";
 import { Bubble, Particles, Stamp } from "./fx";
 import { Owner } from "./Owner";
 import { Chat, Check, Clock, Hand, ImagePost, Loop, Megaphone, Sheet, Spark } from "./icons";
 
-// Momentos clave de la locución (segundos), de voz-G.json.
+// Momentos clave, leídos de las palabras de la locución (voz-G.json).
+const at = (text: string, nth = 0) => wordAt(voz.words, text, nth);
 const T = {
-  mano: 1.48,
-  publicar: 2.11,
-  responder: 2.55,
-  ajustar: 3.37,
-  anotar: 4.17,
-  manana: 5.55,
-  todo: 5.79,
-  pct81: 7.1,
-  agotado: 9.52,
-  pct70: 10.22,
-  horas: 11.82,
-  sella: 13.84,
-  encarga: 14.2,
-  panel: 15.86,
-  tu: 16.47,
-  revisas: 16.71,
-  resultados: 17.19,
-  entra: 18.73,
-  agenda: 19.73,
-  llamada: 20.19,
-  revisamos: 21.59,
+  mano: at("MANO"),
+  publicar: at("PUBLICAR"),
+  responder: at("RESPONDER"),
+  ajustar: at("AJUSTAR"),
+  anotar: at("ANOTAR"),
+  manana: at("MAÑANA"),
+  todo: at("TODO", 1),
+  pct81: at("81%"),
+  agotado: at("AGOTADO"),
+  pct70: at("70%"),
+  horas: at("HORAS"),
+  sella: at("SELLA"),
+  encarga: at("ENCARGA"),
+  panel: at("PANEL"),
+  tu: at("TÚ"),
+  revisas: at("REVISAS"),
+  resultados: at("RESULTADOS"),
+  entra: at("ENTRA"),
+  agenda: at("AGENDA"),
+  llamada: at("LLAMADA"),
+  revisamos: at("REVISAMOS"),
 };
 
-const S = { hook: 2.0, tareas: 6.9, datos: 13.7, sella: 18.35 };
+// Cambios de escena, un poco antes de la frase que abre cada una.
+const S = { hook: T.publicar - 0.15, tareas: at("EL") - 0.15, datos: T.sella - 0.15, sella: T.entra - 0.4 };
 
 /** 1. ¿Sigues haciendo todo tu marketing a mano? — el dueño tapado de pendientes. */
 const Hook: React.FC = () => {
   const t = useT();
-  const pending = Math.round(interpolate(t, [0, 1.9], [14, 37], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
+  const pending = Math.round(interpolate(t, [0, S.hook], [14, 37], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
   const jitter = Math.sin(t * 22) * 7;
   return (
     <>
@@ -117,7 +120,7 @@ const Tareas: React.FC = () => {
       </div>
       {TASKS.map(({ Icon, label, at, bg }, i) => {
         const { x, y } = tilePos(i);
-        const p = pop(t, 1.95 + i * 0.07);
+        const p = pop(t, S.hook - 0.05 + i * 0.07);
         const done = !reset && t >= at;
         const ck = done ? pop(t, at, 30, 11) : 0;
         return (
@@ -160,7 +163,7 @@ const Tareas: React.FC = () => {
           <Loop size={1040} color={C.red} stroke={0.7} />
         </div>
       )}
-      {handOut < 1 && t > 1.9 && (
+      {handOut < 1 && t > S.hook - 0.1 && (
         <div style={{ position: "absolute", left: hx + 200 * handOut, top: hy + 300 * handOut, opacity: 1 - handOut, scale: String(tap), filter: "drop-shadow(0 12px 24px rgba(0,0,0,0.5))" }}>
           <div style={{ background: C.white, borderRadius: 60, padding: 16, display: "flex" }}>
             <Hand size={84} color={C.ink} stroke={2.2} />
@@ -204,7 +207,7 @@ const Datos: React.FC = () => {
   return (
     <>
       <StatCard
-        at={6.85}
+        at={S.tareas - 0.05}
         top={330}
         value={`${countUp(t, T.pct81, T.pct81 + 0.8, 81)}%`}
         color={C.red}
@@ -257,7 +260,7 @@ const Sella: React.FC = () => {
   const line = ramp(t, T.tu + 0.1, T.resultados + 0.6);
   return (
     <>
-      <Card at={13.65} glow style={{ top: 300, height: 700 }}>
+      <Card at={S.datos - 0.05} glow style={{ top: 300, height: 700 }}>
         <PanelHeader />
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "26px 44px 6px" }}>
           <Label style={{ fontSize: 32 }}>MODO</Label>
